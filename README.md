@@ -71,7 +71,7 @@ La comunicación entre los Frontends y la ESP32 se realizará mediante el Backen
 
 **Proyecto Intermodular — Curso 2026-2027**
 
-**Ciclo formativo:** DAM2 (pendiente de confirmar otros ciclos participantes, si corresponde).
+**Ciclo formativo:** DAM2.
 
 ### Integrantes
 

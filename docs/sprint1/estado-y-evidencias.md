@@ -11,7 +11,7 @@
 | Gestión Kanban | [GitHub Project](https://github.com/users/rrrarrra9/projects/1) | Estados Backlog, Por hacer, En curso, En revisión y Hecho confirmados por Raúl |
 | Permisos del Project | Comprobación por Raúl en Manage access | Raúl propietario; Hebert y Noa con Write, confirmado verbalmente por el responsable |
 | Vinculación y repositorio por defecto | Project del equipo | Vinculación y repositorio predeterminado confirmados por Raúl |
-| Product Backlog | [Issues](https://github.com/rrrarrra9/AhorraTenergia/issues) | Al menos 15 Issues de trabajo identificados; valoración y priorización por Noa pendientes |
+| Product Backlog | [Issues](https://github.com/rrrarrra9/AhorraTenergia/issues) | Al menos 17 Issues no duplicados de trabajo identificados (de 20 Issues en total, tres duplicados cerrados); validación y priorización por Noa pendientes |
 | Coordinación backlog | [#10](https://github.com/rrrarrra9/AhorraTenergia/issues/10) | Asignado a Noa; situado en Por hacer según comprobación de Raúl |
 | Arquitectura | [#11](https://github.com/rrrarrra9/AhorraTenergia/issues/11) · [PR #20](https://github.com/rrrarrra9/AhorraTenergia/pull/20) | ADR-001 propuesta, en revisión de Hebert; no fusionada |
 | Diseño UI/UX | [PR #4](https://github.com/rrrarrra9/AhorraTenergia/pull/4) | Fusionada; sin review APPROVED registrado en GitHub |
@@ -25,9 +25,13 @@
 - [#13 API ASP.NET Core](https://github.com/rrrarrra9/AhorraTenergia/issues/13).
 - [#14 Dashboard React](https://github.com/rrrarrra9/AhorraTenergia/issues/14).
 - [#15 Base de datos Supabase](https://github.com/rrrarrra9/AhorraTenergia/issues/15).
-- [#21 Aplicación Android](https://github.com/rrrarrra9/AhorraTenergia/issues/21).
-- [#22 Simulación ESP32](https://github.com/rrrarrra9/AhorraTenergia/issues/22).
-- [#23 Pruebas de integración](https://github.com/rrrarrra9/AhorraTenergia/issues/23).
+- [#16 Aplicación Android](https://github.com/rrrarrra9/AhorraTenergia/issues/16).
+- [#18 Simulación ESP32](https://github.com/rrrarrra9/AhorraTenergia/issues/18).
+- [#19 Pruebas de integración](https://github.com/rrrarrra9/AhorraTenergia/issues/19).
+- [#25 Autenticación y autorización](https://github.com/rrrarrra9/AhorraTenergia/issues/25).
+- [#26 Fuente de precios eléctricos](https://github.com/rrrarrra9/AhorraTenergia/issues/26).
+
+Se han detectado y cerrado como duplicados #21, #22 y #23, manteniendo las tareas previas #16, #18 y #19.
 
 Estos Issues son **trabajo futuro**, no funcionalidades implementadas ni entregables completados en Sprint 1. No se les asignan fechas oficiales ni responsables sin acuerdo del equipo.
 

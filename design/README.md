@@ -9,6 +9,8 @@ Definir una propuesta visual inicial para la interfaz web que permita consultar 
 ## Boceto
 El archivo `dashboard-inicial.png` contiene la propuesta visual de la pantalla principal del dashboard.
 
+![Diseño inicial del dashboard de AhorraTenergia](dashboard-inicial.png)
+
 ## Elementos previstos
 - Producción de energía solar.
 - Consumo eléctrico de la vivienda.

@@ -157,6 +157,30 @@ Los objetivos principales de este sprint son:
 
 **Estado:** Sprint 1 en curso. Las tareas se considerarán completadas únicamente cuando estén realizadas y verificadas en GitHub.
 
+### Seguimiento y entregables del Sprint 1
+
+El trabajo del equipo puede consultarse en:
+
+- [GitHub Project — Tablero Kanban](https://github.com/users/rrrarrra9/projects/1)
+- [Product Backlog — Issue #10](https://github.com/rrrarrra9/AhorraTenergia/issues/10)
+- [Evidencias del Sprint 1 — Issue #12](https://github.com/rrrarrra9/AhorraTenergia/issues/12)
+- [Acta de planificación](docs/actas/2026-10-08-planning-sprint1.md)
+- [Arquitectura inicial](docs/adr/ADR-001-arquitectura.md)
+- [Roles y Definition of Done](docs/roles-y-definition-of-done.md)
+- [Memoria técnica en LaTeX](docs/memoria/main.tex)
+- [Memoria en PDF](docs/memoria/memoria-sprint1.pdf)
+- [Diseño inicial del dashboard](design/dashboard-inicial.png)
+- [Documento de evidencias](docs/sprint1/estado-y-evidencias.md)
+
+**Estado a 17/10/2026:**
+
+- 17 tareas organizadas en GitHub Projects.
+- Prioridades asignadas: 13 P1 y 4 P2.
+- Validación final del backlog pendiente por parte del equipo.
+- Sprint Review y Retrospectiva previstas para el 20/10/2026.
+
+El Sprint 1 permanece en curso. Sus resultados definitivos se documentarán después de las reuniones de cierre.
+
 ## 8. Alcance inicial
 
 Durante las primeras fases nos centraremos en desarrollar un prototipo funcional basado en la simulación del sistema energético.

@@ -1,0 +1,650 @@
+% Adaptación técnica del documento original de Noa Abril.
+% Reorganizado para el capítulo 1 exigido por el Sprint 1.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %% AhorraTenergia - Memoria Sprint 01                      %%
+ %% Basado en la plantilla LaTeX book proporcionada         %%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\documentclass[a4paper,11pt,oneside]{book}
+
+
+
+% ---------------------------------------------------------
+ % PAQUETES
+ % ---------------------------------------------------------
+ \usepackage[T1]{fontenc}
+ \usepackage[utf8]{inputenc}
+ \usepackage{lmodern}
+ \usepackage[spanish,es-nodecimaldot]{babel}
+ \usepackage{geometry}
+ \usepackage{hyperref}
+ \usepackage{graphicx}
+ \usepackage{xcolor}
+ \usepackage{enumitem}
+ \usepackage{booktabs}
+ \usepackage{longtable}
+ \usepackage{tabularx}
+ \usepackage{array}
+ \usepackage{fancyhdr}
+ \usepackage{titlesec}
+ \usepackage[most]{tcolorbox}
+ \usepackage{microtype}
+
+
+
+% ---------------------------------------------------------
+ % FORMATO Y COLORES
+ % ---------------------------------------------------------
+ \geometry{a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+ \definecolor{verde}{HTML}{2E6B4F}
+ \definecolor{verdeoscuro}{HTML}{193F34}
+ \definecolor{verdeclaro}{HTML}{EAF2EC}
+ \definecolor{grisfondo}{HTML}{F4F6F4}
+ \definecolor{gristexto}{HTML}{536158}
+
+
+
+\hypersetup{
+     colorlinks=true,
+     linkcolor=verdeoscuro,
+     urlcolor=verde,
+     pdftitle={AhorraTenergia - Sprint 01},
+     pdfauthor={Equipo AhorraTenergia}
+ }
+
+
+
+\setlength{\parindent}{0pt}
+ \setlength{\parskip}{5pt}
+ \setlist[itemize]{leftmargin=1.1cm,itemsep=2pt,topsep=3pt}
+ \setlist[enumerate]{leftmargin=1.1cm,itemsep=3pt,topsep=3pt}
+ \renewcommand{\arraystretch}{1.2}
+
+
+
+\titleformat{\chapter}[display]
+   {\normalfont\bfseries\color{verdeoscuro}}
+   {\filleft\Large\chaptername\ \thechapter}
+   {1ex}
+   {\titlerule\vspace{1ex}\Huge}
+   [\vspace{1ex}\titlerule]
+
+
+
+\titleformat{\section}
+   {\Large\bfseries\color{verdeoscuro}}
+   {\thesection}{0.7em}{}
+
+
+
+\titleformat{\subsection}
+   {\large\bfseries\color{verde}}
+   {\thesubsection}{0.7em}{}
+
+
+
+\pagestyle{fancy}
+ \fancyhf{}
+ \lhead{\small\textcolor{verde}{AhorraTenergia}}
+ \rhead{\small Sprint 01 · Arranque y planificación}
+ \cfoot{\thepage}
+ \renewcommand{\headrulewidth}{0.4pt}
+ \renewcommand{\headrule}{\hbox to\headwidth{\color{verde}\leaders\hrule height \headrulewidth\hfill}}
+ \setlength{\headheight}{22pt}
+
+
+
+\newtcolorbox{resumenbox}{
+   colback=verdeclaro,
+   colframe=verde,
+   boxrule=0.6pt,
+   arc=2mm,
+   left=3mm,right=3mm,top=2mm,bottom=2mm
+ }
+ \newcommand{\pendiente}[1]{\textcolor{gristexto}{\textit{[#1]}}}
+
+
+
+% ---------------------------------------------------------
+ % DATOS DEL DOCUMENTO
+ % ---------------------------------------------------------
+ \title{\Huge\bfseries\textcolor{verdeoscuro}{AhorraTenergia}\\[0.5cm]
+ \Large Sprint 01: Arranque y planificación inicial}
+ \author{Equipo AhorraTenergia}
+ \date{Octubre de 2026}
+
+
+
+\begin{document}
+
+
+
+% =========================================================
+ % PORTADA Y PRELIMINARES
+ % =========================================================
+ \frontmatter
+ \begin{titlepage}
+     \thispagestyle{empty}
+     \vspace*{1.5cm}
+     {\color{verde}\rule{2.2cm}{4pt}}\par
+     \vspace{0.8cm}
+     {\Huge\bfseries\color{verdeoscuro}AhorraTenergia\par}
+     \vspace{0.4cm}
+     {\LARGE Sprint 01\par}
+     \vspace{0.2cm}
+     {\Large Arranque y planificación inicial\par}
+     \vspace{1cm}
+     {\large Memoria de planificación, arquitectura y organización del proyecto\par}
+     \vspace{1cm}
+
+
+
+    \begin{resumenbox}
+     \textbf{Propuesta de valor}\\
+     Una solución para visualizar y simular la gestión energética doméstica, relacionando producción solar, consumo, batería y precio de la electricidad.
+     \end{resumenbox}
+
+
+
+    \vfill
+     \begin{tabularx}{\textwidth}{>{\bfseries}p{4.7cm}X}
+     Proyecto & AhorraTenergia\\
+     Sprint & 01 -- Arranque y planificación inicial\\
+     Periodo de trabajo & 06/10/2026 -- 20/10/2026\\
+     Integrantes & Raúl Sánchez Ortiz; Hebert Alberto Calderon Torres; Noa Abril\\
+    Repositorio & \url{https://github.com/rrrarrra9/AhorraTenergia} \\
+     Tecnologías principales & ASP.NET Core, React, Android Java, Supabase y ESP32 con C++\\
+     \end{tabularx}
+     \vspace{0.3cm}
+     \parbox{\textwidth}{\small\color{gristexto}Documento de trabajo. Las tareas previstas y las decisiones pendientes se distinguen de los resultados que ya se hayan verificado.}
+ \end{titlepage}
+
+
+
+\tableofcontents
+ \cleardoublepage
+
+
+
+% =========================================================
+ % PREFACIO
+ % =========================================================
+ \chapter*{Presentación}
+ \addcontentsline{toc}{chapter}{Presentación}
+
+
+
+Este documento recoge la planificación inicial del proyecto intermodular AhorraTenergia. Su objetivo es establecer una visión compartida del problema que se quiere abordar, la solución propuesta, las tecnologías previstas y la forma de organizar el trabajo durante el Sprint 1.
+
+
+
+AhorraTenergia se plantea como un prototipo de gestión energética doméstica. El sistema permitirá representar y simular la relación entre la producción solar, el consumo de una vivienda, el estado de una batería y la energía obtenida de la red eléctrica. La primera versión se centrará en la simulación y en la integración entre componentes, sin accionar una instalación eléctrica real.
+
+
+
+La documentación se organiza en torno a la definición del proyecto, la gestión con GitHub, la arquitectura inicial, la planificación, el backlog, la metodología de trabajo, los riesgos y la revisión del sprint. Los acuerdos específicos y las tareas completadas deberán confirmarse con evidencias reales del equipo.
+
+
+
+% =========================================================
+ % CAPÍTULO 1
+ % =========================================================
+ \mainmatter
+ \chapter{Introducción, problema y objetivos}
+
+\section{Introducción}
+AhorraTenergia es un proyecto intermodular orientado al desarrollo de un prototipo de gestión energética doméstica. Su propósito es reunir información sobre consumo, producción fotovoltaica, batería y precio de la electricidad en una solución que permita visualizar y simular decisiones de gestión. La primera versión utilizará datos simulados y no accionará instalaciones eléctricas reales.
+
+\section{Problema o necesidad detectada}
+ En una vivienda con paneles solares, batería y conexión a la red, la producción y el consumo cambian a lo largo del día. También puede variar el precio de la electricidad. Sin una vista conjunta de estas variables, resulta difícil comprender cuándo se consume energía solar, cuándo se recurre a la red y qué efecto pueden tener las reglas de gestión.
+
+
+
+AhorraTenergia busca representar estos datos en una aplicación y permitir la simulación de decisiones. El MVP será demostrativo y no controlará físicamente una instalación eléctrica real.
+
+
+
+\section{Usuario objetivo}
+ El usuario principal es una persona que dispone de una vivienda y desea comprender mejor su consumo energético, especialmente si cuenta con autoconsumo fotovoltaico y, potencialmente, una batería. Como uso secundario, el prototipo puede servir para mostrar la integración entre software, datos y electrónica en un contexto educativo.
+
+
+
+\section{Propuesta de valor}
+ AhorraTenergia centraliza la visualización de las variables energéticas principales y permite demostrar cómo el precio eléctrico, la producción solar y el nivel de batería pueden intervenir en decisiones simuladas de gestión.
+
+
+
+\section{Objetivo general}
+ Diseñar, desarrollar y demostrar un prototipo de gestión energética doméstica que visualice y simule la relación entre producción solar, consumo, batería y red eléctrica, teniendo en cuenta el precio de la electricidad y centralizando la lógica de decisión en un backend.
+
+
+
+\section{Objetivos específicos}
+ \begin{enumerate}
+     \item Definir una arquitectura que integre ASP.NET Core, React, Android Java, Supabase y ESP32.
+     \item Generar o recibir datos simulados de producción solar, consumo y batería.
+     \item Desarrollar una API para recibir, validar y consultar la información del sistema.
+     \item Guardar medidas e histórico de decisiones en la base de datos.
+     \item Definir reglas de decisión a partir del precio eléctrico y el estado de la batería.
+     \item Crear una interfaz web para consultar las variables energéticas.
+     \item Crear una aplicación Android para consultar la información proporcionada por el backend.
+     \item Comprobar el intercambio de datos y órdenes simuladas entre backend y ESP32.
+     \item Realizar pruebas de coherencia y comunicación.
+     \item Documentar decisiones técnicas, tareas, pruebas y resultados.
+ \end{enumerate}
+
+\section{Resumen del Sprint 1}
+
+
+
+El Sprint 1 está dedicado al arranque del proyecto AhorraTenergia y a establecer una base común de trabajo. En esta fase se concreta la idea general, se define una primera arquitectura, se inicia la organización del repositorio GitHub y se distribuyen las tareas necesarias para avanzar de forma coordinada.
+
+
+
+El proyecto propone un prototipo de gestión energética doméstica que permita observar y simular la relación entre la producción solar, el consumo de la vivienda, el estado de una batería y la conexión a la red eléctrica. La primera versión se centrará en datos simulados y en demostrar la comunicación entre los componentes.
+
+
+
+\begin{resumenbox}
+ \textbf{Objetivo del sprint}\\
+ Disponer de una definición compartida del proyecto, una arquitectura inicial, una estructura de repositorio y una planificación de tareas verificables que permita comenzar el desarrollo del producto mínimo viable (MVP).
+ \end{resumenbox}
+
+
+
+\subsection{Resultados esperados}
+ \begin{itemize}
+     \item Descripción del problema, del usuario objetivo y de la propuesta de valor.
+     \item Arquitectura inicial de frontend web, aplicación Android, backend, base de datos y ESP32.
+     \item Repositorio GitHub con documentación y ramas organizadas.
+     \item Backlog inicial con tareas identificables y asignables.
+     \item Acuerdos de trabajo, reuniones y criterios iniciales de aceptación.
+     \item Identificación de riesgos, dependencias y cuestiones pendientes.
+ \end{itemize}
+
+
+
+\chapter{Gestión del proyecto con GitHub}
+
+
+
+\section{Objetivo del uso de GitHub}
+ GitHub se utilizará como punto central para mantener el código, la documentación, las tareas y el historial de cambios. El equipo podrá trabajar en paralelo, revisar aportaciones y dejar constancia de las decisiones adoptadas durante el proyecto.
+
+
+
+\section{Repositorio}
+ El repositorio de referencia del proyecto es:
+
+
+
+\begin{center}
+\url{https://github.com/rrrarrra9/AhorraTenergia}
+ \end{center}
+
+
+
+La estructura propuesta para organizar los principales componentes es la siguiente:
+
+
+
+\begin{verbatim}
+ AhorraTenergia/
+ |-- docs/
+ |   |-- memoria/
+ |   |-- actas/
+ |   `-- adr/
+ |-- src/
+ |   |-- backend/
+ |   |-- web/
+ |   |-- android/
+ |   `-- esp32/
+ |-- design/
+ |-- tests/
+ `-- README.md
+ \end{verbatim}
+
+
+
+Esta estructura refleja las carpetas iniciales del repositorio. Sus archivos y subcarpetas se completarán progresivamente durante el proyecto.
+
+
+
+\section{Ramas y flujo de trabajo}
+ Se propone mantener \texttt{main} como rama estable y crear ramas específicas para cada funcionalidad o tarea. Durante la fase inicial se ha trabajado con una rama de diseño denominada \texttt{design/dashboard-inicial} para incorporar la propuesta visual del dashboard.
+
+
+
+El flujo recomendado es:
+ \begin{enumerate}
+     \item Crear o seleccionar un Issue que describa el trabajo.
+     \item Crear una rama con un nombre descriptivo vinculada a la tarea.
+     \item Realizar cambios pequeños y comprensibles.
+     \item Guardar los cambios mediante commits con mensajes claros.
+     \item Revisar el resultado y abrir una Pull Request cuando proceda.
+     \item Comprobar que la documentación relacionada queda actualizada.
+     \item Integrar el cambio en la rama principal tras la revisión acordada.
+ \end{enumerate}
+
+
+
+\section{Convenciones de trabajo}
+ \begin{itemize}
+     \item Los Issues describirán una tarea concreta, sus criterios de aceptación y, cuando se acuerde, su responsable.
+     \item Los commits deberán resumir el cambio realizado.
+     \item Las ramas podrán utilizar prefijos como \texttt{feat/}, \texttt{fix/}, \texttt{docs/} y \texttt{design/}.
+     \item Los cambios relevantes deberán relacionarse con un Issue cuando sea posible.
+     \item No se subirán contraseñas, tokens, claves privadas ni credenciales.
+     \item Los secretos se mantendrán fuera del repositorio y se documentarán mediante ejemplos sin credenciales reales.
+ \end{itemize}
+
+
+
+\section{Definition of Done}
+ Una tarea podrá considerarse terminada cuando:
+ \begin{itemize}
+     \item Cumpla el objetivo descrito en el Issue.
+     \item Sus criterios de aceptación hayan sido comprobados.
+     \item Los cambios estén guardados en Git y vinculados a la tarea.
+     \item La documentación necesaria esté actualizada.
+     \item No incluya secretos ni archivos innecesarios.
+     \item Haya sido revisada por otra persona cuando el tipo de cambio lo requiera.
+     \item Se haya integrado siguiendo el flujo acordado, si está lista para integrar.
+ \end{itemize}
+
+
+
+\chapter{Planificación del proyecto}
+
+
+
+\section{Alcance del MVP}
+ El MVP contempla:
+ \begin{itemize}
+     \item Datos energéticos simulados.
+     \item Backend con API y reglas de negocio iniciales.
+     \item Persistencia de datos mediante Supabase.
+     \item Dashboard web inicial.
+     \item Aplicación Android de consulta.
+     \item Comunicación de prueba con ESP32.
+     \item Modos automático y manual dentro del entorno simulado, en la medida en que se implementen en el alcance acordado.
+ \end{itemize}
+
+
+
+Quedan pendientes de definición detallada la integración con fuentes reales de precios, el alojamiento definitivo, la autenticación, el protocolo final de comunicación y las funcionalidades avanzadas. No se contempla accionar equipos eléctricos reales durante esta fase.
+
+
+
+\section{Arquitectura técnica inicial}
+ \begin{center}
+ \small
+ \begin{tabularx}{\textwidth}{>{\bfseries}p{3.4cm}X}
+ \toprule
+ Componente & Responsabilidad inicial\\
+ \midrule
+ Frontend web -- React & Presentar el dashboard y permitir consultar el estado del sistema.\\
+ Aplicación Android -- Java & Ofrecer una interfaz móvil para consultar los datos.\\
+ Backend -- ASP.NET Core / C\# & Exponer la API, centralizar la lógica de negocio y coordinar datos y órdenes.\\
+ Base de datos -- Supabase / PostgreSQL & Persistir medidas, estados e histórico.\\
+ ESP32 -- C++ & Generar o comunicar datos simulados y representar la ejecución de órdenes.\\
+ GitHub & Gestionar código, documentación, Issues y revisiones.\\
+ \bottomrule
+ \end{tabularx}
+ \normalsize
+ \end{center}
+
+
+
+\section{Flujo general de información}
+ La aplicación web y la aplicación Android se comunicarán con el backend mediante una API. El backend consultará o guardará información en Supabase y coordinará el intercambio de datos con la ESP32. La placa comunicará los valores simulados y podrá recibir órdenes para representar el comportamiento definido.
+
+
+
+La lógica de decisión se plantea inicialmente en el backend. La elección del protocolo concreto, el formato de mensajes y la frecuencia de actualización deberán validarse durante el desarrollo. Esta arquitectura no debe interpretarse como una conexión eléctrica real ni como un sistema certificado de control energético.
+
+
+
+\section{Plan de reuniones}
+ Las reuniones indicadas para la planificación inicial son las siguientes:
+
+
+
+\begin{center}
+ \small
+ \begin{tabularx}{\textwidth}{p{3.2cm}p{2.8cm}X}
+ \toprule
+ Fecha & Horario & Finalidad general\\
+ \midrule
+ Jueves 8 de octubre de 2026 & 16:45--18:30 & Inicio y puesta en común del proyecto.\\
+ Martes 13 de octubre de 2026 & 16:45--18:30 & Revisión de la planificación y avance del trabajo.\\
+ Jueves 15 de octubre de 2026 & 16:45--18:30 & Continuación de la organización y revisión de entregables.\\
+ Lunes 19 de octubre de 2026 & 15:30--16:30 & Seguimiento previsto y preparación del cierre.\\
+ \bottomrule
+ \end{tabularx}
+ \normalsize
+ \end{center}
+
+
+
+Los acuerdos concretos de cada reunión deberán reflejarse en el acta correspondiente, indicando asistentes, decisiones, tareas asignadas y asuntos pendientes. No deben atribuirse acuerdos a una reunión sin haberlos confirmado con el equipo.
+
+
+
+\section{Distribución de tareas}
+ La distribución inicial se organiza por áreas de trabajo y permite colaboración y revisión cruzada. Los responsables concretos de cada Issue se registrarán en GitHub. Los tres integrantes participan en Backend y Frontend.
+
+
+
+\small
+ \begin{longtable}{p{2.7cm}p{7.4cm}p{2.6cm}}
+ \toprule
+ Área & Tareas principales & Responsable\\
+ \midrule
+ Coordinación & Administrar GitHub Project, organizar reuniones y realizar seguimiento. & Raúl (coord.)\\
+ Diseño UI/UX & Proponer el dashboard inicial y documentar decisiones visuales. & Noa\\
+ Backend & Definir API, modelos de datos y lógica inicial. & Equipo\\
+ Base de datos & Proponer tablas para medidas, estados e histórico. & Equipo\\
+ Frontend web & Preparar la estructura de React y la visualización inicial. & Equipo\\
+ Android & Definir la estructura inicial de la aplicación móvil. & Equipo\\
+ ESP32 & Preparar el esquema de datos simulados y la comunicación de prueba. & Hebert\\
+ Documentación y pruebas & Mantener memoria, actas, criterios de aceptación y evidencias. & Equipo (Hebert)\\
+ \bottomrule
+ \end{longtable}
+ \normalsize
+
+
+
+\chapter{Backlog inicial}
+
+
+
+El backlog identifica trabajo pendiente o previsto; su inclusión no significa que la tarea esté completada. Cada elemento deberá convertirse en Issue o tarea de GitHub, asignarse y actualizarse conforme avance el equipo.
+
+
+
+\small
+ \begin{longtable}{p{1.2cm}p{2.6cm}p{7.5cm}p{1.7cm}}
+ \toprule
+ ID & Área & Tarea / resultado esperado & Prioridad\\
+ \midrule
+ AT-01 & Coordinación & Crear y mantener la estructura inicial del repositorio. & Alta\\
+ AT-02 & Coordinación & Definir convenciones de ramas, commits e Issues. & Alta\\
+ AT-03 & Documentación & Completar la memoria del Sprint 1. & Alta\\
+ AT-04 & Documentación & Registrar las reuniones y los acuerdos confirmados. & Alta\\
+ AT-05 & Diseño & Preparar la propuesta inicial del dashboard. & Alta\\
+ AT-06 & Diseño & Vincular el diseño con su Issue y guardar evidencias. & Alta\\
+ AT-07 & Arquitectura & Documentar el esquema general de componentes. & Alta\\
+ AT-08 & Backend & Crear la estructura inicial del proyecto ASP.NET Core. & Alta\\
+ AT-09 & Backend & Definir los primeros endpoints de la API. & Alta\\
+ AT-10 & Backend & Definir modelos para las variables energéticas. & Alta\\
+ AT-11 & Backend & Especificar la primera regla de decisión simulada. & Alta\\
+ AT-12 & Datos & Proponer el esquema de tablas en Supabase. & Alta\\
+ AT-13 & Datos & Definir cómo se almacenarán las medidas y su fecha. & Media\\
+ AT-14 & Web & Crear la estructura base de React. & Alta\\
+ AT-15 & Web & Diseñar los componentes principales del dashboard. & Alta\\
+ AT-16 & Web & Preparar el consumo de datos desde la API. & Media\\
+ AT-17 & Android & Crear la estructura inicial de la aplicación Java. & Media\\
+ AT-18 & Android & Diseñar la vista inicial de consulta del estado. & Media\\
+ AT-19 & ESP32 & Definir el formato de los datos simulados. & Alta\\
+ AT-20 & ESP32 & Preparar un primer intercambio de prueba con el backend. & Media\\
+ AT-21 & Integración & Definir el formato de las órdenes y sus respuestas. & Media\\
+ AT-22 & Pruebas & Definir escenarios básicos de producción, consumo y batería. & Alta\\
+ AT-23 & Pruebas & Comprobar validación y coherencia de los datos. & Media\\
+ AT-24 & Seguridad & Evitar que las credenciales se incluyan en el repositorio. & Alta\\
+ AT-25 & Entrega & Revisar el estado del sprint y preparar evidencias. & Alta\\
+ \bottomrule
+ \end{longtable}
+ \normalsize
+
+
+
+\section{Criterios generales de aceptación}
+ Una tarea se aceptará cuando exista una evidencia comprobable del resultado solicitado. Según el tipo de tarea, la evidencia podrá ser un commit, una Pull Request, una captura, un documento actualizado, una prueba ejecutada o una demostración funcional.
+
+
+
+% =========================================================
+ % METODOLOGÍA Y RETROSPECTIVA
+ % =========================================================
+ \chapter{Metodología de trabajo}
+
+
+
+\section{Organización}
+ El equipo trabajará de forma incremental, dividiendo el proyecto en tareas pequeñas y revisables. GitHub será el registro de referencia para los cambios de código y las tareas, mientras que la memoria y las actas recogerán las decisiones relevantes.
+
+
+
+\section{Ciclo de trabajo}
+ \begin{enumerate}
+     \item Identificar una necesidad y describirla como Issue.
+     \item Acordar prioridad, responsable y criterios de aceptación.
+     \item Implementar el cambio en una rama adecuada.
+     \item Realizar pruebas proporcionales al cambio.
+     \item Revisar el resultado y actualizar la documentación.
+     \item Integrar el cambio cuando cumpla los criterios acordados.
+     \item Actualizar el estado de la tarea y dejar evidencias.
+ \end{enumerate}
+
+
+
+\section{Comunicación y acuerdos}
+ Las decisiones que afecten a la arquitectura, al alcance o a la distribución del trabajo deberán compartirse con el equipo. Los acuerdos importantes se registrarán por escrito para reducir ambigüedades. Cuando exista una decisión pendiente, se marcará como tal en vez de asumirla como definitiva.
+
+
+
+\section{Gestión de riesgos}
+ \small
+ \begin{longtable}{p{3cm}p{4.3cm}p{6.1cm}}
+ \toprule
+ Riesgo & Consecuencia posible & Medida preventiva\\
+ \midrule
+ Integración de tecnologías & Retrasos al conectar componentes. & Definir contratos de API y formatos de datos pronto.\\
+ Alcance excesivo & No completar el MVP. & Priorizar la simulación y las funciones esenciales.\\
+ Dependencia de servicios externos & Bloqueos por configuración o disponibilidad. & Usar datos de prueba y documentar alternativas.\\
+ Conflictos en Git & Pérdida de tiempo o cambios incompatibles. & Trabajar con ramas, commits pequeños y revisión.\\
+ Credenciales expuestas & Acceso no autorizado a servicios. & Usar variables de entorno y no versionar secretos.\\
+ Falta de evidencias & Dificultad para justificar el trabajo realizado. & Mantener Issues, actas, pruebas y capturas.\\
+ \bottomrule
+ \end{longtable}
+ \normalsize
+
+
+
+\chapter{Revisión y retrospectiva del Sprint 1}
+
+
+
+Borrador de puntos para contrastar en la reunión de cierre del 20/10/2026. No se presentan todavía como resultados ni como acuerdos de una retrospectiva celebrada. Al finalizar el sprint se completarán la Review y la Retrospectiva con evidencias reales.
+
+
+
+\section{Posibles aspectos positivos (pendientes de validar)}
+ \begin{itemize}
+     \item La idea general del proyecto permite identificar una necesidad y un usuario objetivo.
+     \item La selección inicial de tecnologías define una base común para la arquitectura.
+     \item El uso de GitHub permite centralizar el código, las tareas y la documentación.
+ \end{itemize}
+
+
+
+\section{Posibles aspectos de mejora (pendientes de validar)}
+ \begin{itemize}
+     \item Confirmar responsables y fechas objetivo para cada tarea.
+     \item Mantener los Issues actualizados con criterios de aceptación claros.
+     \item Documentar los acuerdos de las reuniones en el momento en que se producen.
+     \item Reservar tiempo para integrar y probar componentes, no solo desarrollarlos por separado.
+ \end{itemize}
+
+
+
+\section{Propuestas de mejora (pendientes de acuerdo)}
+ \begin{enumerate}
+     \item Revisar el backlog al inicio de cada sesión de trabajo.
+     \item Actualizar el estado de las tareas cuando cambie su situación.
+     \item Acordar el formato de los datos intercambiados entre backend y ESP32.
+     \item Mantener una demostración mínima funcional desde las primeras iteraciones.
+     \item Registrar los bloqueos y asignar una acción para resolver cada uno.
+ \end{enumerate}
+
+
+
+\chapter{Entregables, evidencias y decisiones pendientes}
+
+
+
+\section{Entregables previstos}
+ \begin{itemize}
+     \item Documento de planificación del Sprint 1.
+     \item Repositorio GitHub con estructura inicial.
+     \item Issues y backlog inicial.
+     \item Propuesta visual inicial del dashboard.
+     \item Esquema de arquitectura y tecnologías.
+     \item Actas de reuniones y acuerdos confirmados.
+     \item Definición inicial de tareas, responsables y criterios de aceptación.
+ \end{itemize}
+
+
+
+La existencia de un entregable deberá comprobarse en el repositorio o en el espacio de trabajo del equipo. La documentación de planificación no implica por sí misma que los componentes de software estén implementados.
+
+
+
+\section{Decisiones pendientes}
+ \begin{itemize}
+     \item Responsables definitivos de cada tarea futura del backlog.
+     \item Contrato y endpoints definitivos de la API.
+     \item Protocolo de comunicación entre ESP32 y backend.
+     \item Modelo final de datos y políticas de acceso de Supabase.
+     \item Fuente de los precios eléctricos y estrategia de actualización.
+     \item Reglas exactas para el modo automático y el modo manual simulado.
+     \item Entorno de despliegue y configuración de secretos.
+     \item Alcance definitivo de las pruebas y criterios cuantificables de aceptación.
+ \end{itemize}
+
+
+
+\chapter*{Conclusión}
+ \addcontentsline{toc}{chapter}{Conclusión}
+
+
+
+El Sprint 1 establece la base organizativa y técnica de AhorraTenergia. Se define un problema relacionado con la comprensión de los flujos energéticos domésticos, un usuario objetivo y una solución que integra aplicaciones, backend, almacenamiento de datos y una placa ESP32.
+
+
+
+La siguiente fase deberá convertir esta planificación en incrementos funcionales, empezando por los contratos de datos, la API, la persistencia y la generación de datos simulados. El seguimiento mediante Issues, commits, pruebas y documentación permitirá verificar el avance y mantener una memoria fiel al trabajo realizado.
+
+
+
+\vfill
+ \begin{center}
+ \textcolor{gristexto}{\small AhorraTenergia · Sprint 01 · Arranque y planificación inicial}
+ \end{center}
+
+
+
+\end{document}

@@ -1,117 +1,361 @@
-% AhorraTenergia — Memoria tecnica, capitulo 1 (Sprint 01).
-% Revision editorial basada en el documento de Noa Abril Casas
-% y en la version previa de docs/memoria/main.tex.
-% Compilar con XeLaTeX.
 \documentclass[11pt,a4paper,oneside]{report}
 \usepackage[spanish,es-noquoting]{babel}
 \usepackage{fontspec}
 \setmainfont{Lato}
 \setsansfont{Lato}
-\usepackage[a4paper,top=2.65cm,bottom=2.65cm,left=2.8cm,right=2.7cm]{geometry}
+\usepackage[a4paper,top=2.6cm,bottom=2.55cm,left=2.8cm,right=2.55cm]{geometry}
 \usepackage{microtype}
-\usepackage{xcolor}
+\usepackage{booktabs,longtable,array,tabularx}
 \usepackage{enumitem}
+\usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
+\usepackage{tikz}
+\usepackage{float}
 \usepackage{ragged2e}
-\definecolor{verde}{HTML}{184C3F}
-\definecolor{gris}{HTML}{566568}
-\definecolor{texto}{HTML}{253035}
-\hypersetup{
- colorlinks=true,
- linkcolor=verde,
- urlcolor=verde,
- pdftitle={AhorraTenergia - Memoria tecnica - Sprint 01},
- pdfauthor={Equipo AhorraTenergia}
-}
+\usepackage{lastpage}
+\usepackage{caption}
+\definecolor{forest}{HTML}{184C3F}
+\definecolor{mint}{HTML}{E9F2EE}
+\definecolor{ink}{HTML}{243139}
+\definecolor{muted}{HTML}{5E6C70}
+\definecolor{line}{HTML}{CAD7D2}
+\hypersetup{colorlinks=true,linkcolor=forest,urlcolor=forest,pdftitle={AhorraTenergia - Sprint 1},pdfauthor={Equipo AhorraTenergia}}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
-\setlist[itemize]{leftmargin=1.5em,topsep=4pt,itemsep=4pt}
-\titleformat{\chapter}[display]{\sffamily\bfseries\color{verde}}{\small CAPÍTULO \thechapter}{7pt}{\Huge}
-\titlespacing*{\chapter}{0pt}{0pt}{18pt}
-\titleformat{\section}{\sffamily\bfseries\large\color{verde}}{\thesection}{0.8em}{}
-\titlespacing*{\section}{0pt}{16pt}{7pt}
+\renewcommand{\arraystretch}{1.23}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.6em}
+\setlist[enumerate]{topsep=4pt,itemsep=3pt,leftmargin=1.7em}
+\titleformat{\chapter}[display]{\sffamily\bfseries\color{forest}}{\small CAPÍTULO \thechapter}{6pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-5pt}{22pt}
+\titleformat{\section}{\sffamily\bfseries\large\color{forest}}{\thesection}{9pt}{}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize\color{ink}}{\thesubsection}{8pt}{}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\sffamily AhorraTenergia}
-\fancyhead[R]{\small\sffamily Memoria técnica · Sprint 01}
-\fancyfoot[C]{\small\thepage}
-\renewcommand{\headrulewidth}{0.3pt}
-\setlength{\headheight}{15pt}
+\fancyhead[R]{\small\sffamily Sprint 01 · 2026}
+\fancyfoot[C]{\small\sffamily\thepage\ / \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.25pt}
+\newcommand{\src}[2]{\href{#1}{#2}}
+\newcommand{\status}[1]{\textsf{\textbf{#1}}}
+\newcommand{\important}[1]{\par\vspace{5pt}\noindent\colorbox{mint}{\parbox{0.89\linewidth}{\vspace{6pt}\small\RaggedRight\emergencystretch=3em #1\vspace{6pt}}}\vspace{5pt}}
 \begin{document}
-
 \begin{titlepage}
 \thispagestyle{empty}
 \vspace*{2.0cm}
-{\sffamily\large\bfseries\color{verde}PROYECTO INTERMODULAR · DAM2\par}
-\vspace{1.0cm}
-{\sffamily\bfseries\fontsize{37}{43}\selectfont AhorraTenergia\par}
-\vspace{0.35cm}
-{\sffamily\LARGE Memoria técnica\par}
-{\sffamily\large\color{gris}Sprint 01 · Arranque y planificación inicial\par}
-\vspace{1.0cm}
-{\color{verde}\rule{\linewidth}{2pt}\par}
+{\sffamily\color{forest}\Large PROYECTO INTERMODULAR \quad DAM2 · ASIX2 · SIMIX2\par}
+\vspace{1.1cm}
+{\sffamily\bfseries\fontsize{39}{44}\selectfont AhorraTenergia\par}
+\vspace{0.4cm}
+{\sffamily\color{muted}\LARGE Sprint 01\par}
+\vspace{0.13cm}
+{\sffamily\Large Arranque y planificación inicial\par}
+\vspace{0.9cm}
+\begin{tikzpicture}
+\fill[forest] (0,0) rectangle (11.8,0.13);
+\end{tikzpicture}
 \vspace{0.8cm}
-{\sffamily\Large\bfseries Capítulo 1\par}
-{\sffamily\large Introducción, problema y objetivos\par}
-\vspace{0.8cm}
-{\large\itshape Visualiza tu energía y simula decisiones de consumo más informadas.\par}
+{\large Una solución para visualizar y simular la gestión energética doméstica, relacionando producción solar, consumo, batería y precio de la electricidad.\par}
 \vfill
-{\sffamily\bfseries Equipo\par}
+{\sffamily\bfseries Integrantes\par}
 Raúl Sánchez Ortiz · Hebert Alberto Calderon Torres · Noa Abril Casas\par
-\vspace{0.45cm}
+\vspace{0.3cm}
 {\sffamily\bfseries Periodo del sprint\par}
-6–20 de octubre de 2026\par
-\vspace{0.45cm}
+6 al 20 de octubre de 2026\par
+\vspace{0.3cm}
 {\sffamily\bfseries Repositorio\par}
 \url{https://github.com/rrrarrra9/AhorraTenergia}\par
-\vspace{0.9cm}
-{\small\color{gris}Documento académico de planificación. Las funcionalidades descritas corresponden al prototipo previsto y no se presentan como implementadas durante el Sprint 1.\par}
+\vspace{0.55cm}
+{\small\color{muted}Edición consolidada: 19 de octubre de 2026. Las reuniones de cierre previstas para el 20/10 no se describen como celebradas.}\par
 \end{titlepage}
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+\chapter*{Presentación}\addcontentsline{toc}{chapter}{Presentación}
+AhorraTenergia es un proyecto intermodular orientado a demostrar, mediante un prototipo, cómo se relacionan la producción fotovoltaica, el consumo doméstico, el estado de una batería y el precio de la electricidad. La primera versión utiliza datos simulados y no acciona físicamente una instalación eléctrica real.
 
-\setcounter{page}{1}
+Este documento consolida la planificación inicial, la arquitectura prevista, el backlog, la metodología de trabajo y las evidencias recogidas en GitHub durante el Sprint 1. Distingue expresamente entre \emph{resultados verificados}, \emph{trabajo planificado} y \emph{ceremonias todavía pendientes}. Esta distinción es esencial para que la memoria pueda contrastarse con el repositorio.
+
+\important{\textbf{Estado de corte (19/10/2026):} 8 de los 9 Issues asociados al milestone Sprint 1 figuran cerrados; el Issue \#12 sigue abierto con 14 de 16 casillas completadas. Sus dos tareas restantes corresponden a registrar, una vez realizadas, la Sprint Review y la Retrospectiva del 20/10.}
+\clearpage
+\pagenumbering{arabic}
 \chapter{Introducción, problema y objetivos}
-
 \section{Introducción}
-AhorraTenergia es un proyecto de desarrollo de aplicaciones que propone un prototipo de gestión energética doméstica. Su finalidad es reunir en una misma solución información sobre el consumo eléctrico de una vivienda, la producción de energía solar, el estado de una batería y el precio de la electricidad.
-
-El sistema se plantea como una aplicación que permita \textbf{visualizar estas variables y simular decisiones de gestión energética}. El trabajo combina desarrollo de software, almacenamiento de datos e integración con una placa ESP32, sin intervenir sobre una instalación eléctrica real.
-
+AhorraTenergia es un proyecto intermodular orientado al desarrollo de un prototipo de gestión energética doméstica. Su propósito es reunir información sobre consumo eléctrico, producción solar, batería y precio de la electricidad en una solución que permita visualizar y simular decisiones de gestión. La primera versión utilizará datos simulados y no actuará sobre instalaciones reales.
 \section{Problema o necesidad detectada}
-En una vivienda con instalación fotovoltaica y conexión a la red eléctrica, la energía solar disponible no siempre coincide con los momentos de mayor consumo. Además, el precio de la electricidad puede variar según la hora y una batería introduce otra variable: la energía almacenada.
-
-Consultar estos datos por separado dificulta comprender de dónde procede la energía utilizada y cómo podrían influir el precio, la producción y la batería en las decisiones de consumo. AhorraTenergia aborda esta necesidad mediante una \textbf{visualización conjunta} y escenarios simulados que facilitan el análisis, sin prometer ahorros económicos que todavía no se han medido.
-
-\section{Usuario o cliente objetivo}
-La solución está dirigida principalmente a personas que desean conocer y comprender mejor el consumo de su vivienda, especialmente cuando disponen de paneles solares y, de forma opcional, una batería doméstica. También puede utilizarse como demostración educativa de integración entre aplicaciones, datos y electrónica.
-
-\section{Frase de venta y propuesta de valor}
-\textbf{Frase de venta:} «Visualiza tu energía y simula decisiones de consumo más informadas».
-
-La propuesta de valor consiste en presentar las principales variables energéticas en una interfaz comprensible y permitir comparar, de forma simulada, diferentes condiciones de consumo, producción solar, precio eléctrico y disponibilidad de batería.
-
+En una vivienda con paneles solares, batería y conexión a la red, la producción y el consumo cambian durante el día. También varía el precio de la electricidad. Sin una vista conjunta resulta difícil comprender cuándo se consume energía solar, cuándo se recurre a la red y qué efecto podrían tener determinadas reglas de gestión. El prototipo permite estudiar estas relaciones sin ejecutar maniobras eléctricas reales.
+\section{Usuario objetivo}
+El usuario principal es una persona que quiere entender mejor el consumo de su vivienda, especialmente si dispone de autoconsumo fotovoltaico y eventualmente de batería. Como uso secundario, el proyecto demuestra la integración entre software, datos y electrónica en un entorno educativo.
+\section{Propuesta de valor}
+Centralizar las variables energéticas principales y simular cómo el precio, la producción y el nivel de batería intervienen en decisiones de gestión comprensibles para el usuario.
 \section{Objetivo general}
-Diseñar y desarrollar un \textbf{prototipo demostrativo de gestión energética doméstica} que visualice datos de consumo, generación solar, batería y precio eléctrico, y que permita simular decisiones de gestión mediante una lógica centralizada en el backend.
-
+Diseñar, desarrollar y demostrar un prototipo que visualice y simule la relación entre producción solar, consumo, batería y red eléctrica, incorporando el precio de la electricidad y centralizando la lógica de decisión en un backend.
 \section{Objetivos específicos}
+\begin{enumerate}
+\item Definir una arquitectura que integre ASP.NET Core, React, Android Java, Supabase y ESP32.
+\item Generar o recibir datos simulados de producción, consumo y batería.
+\item Diseñar una API para recibir, validar y consultar información.
+\item Almacenar medidas y un histórico de decisiones.
+\item Proponer reglas simuladas de decisión basadas en precio y batería.
+\item Diseñar interfaces web y móvil para visualizar el estado del sistema.
+\item Comprobar el intercambio de datos y órdenes simuladas con ESP32.
+\item Planificar pruebas de coherencia, comunicación y documentación.
+\end{enumerate}
+\section{Objetivo y alcance del Sprint 1}
+Poner en marcha el proyecto: repositorio operativo, organización del equipo, backlog visible, arquitectura inicial y capítulo 1 de la memoria LaTeX. No se exige implementar todas las funcionalidades del MVP durante este sprint. Los resultados deben acreditarse mediante Issues, commits, Pull Requests, actas, capturas y documentos.
+
+\chapter{Gestión del proyecto con GitHub}
+\section{Repositorio y estructura}
+El repositorio de referencia es \url{https://github.com/rrrarrra9/AhorraTenergia}. GitHub se utiliza para documentar el proyecto, registrar tareas, gestionar contribuciones y revisar los cambios relevantes.
+\begin{verbatim}
+AhorraTenergia/
+  docs/
+    memoria/       actas/       adr/
+  src/
+    backend/       web/         android/     esp32/
+  design/
+  tests/
+  README.md
+\end{verbatim}
+La estructura constituye el diseño de organización del proyecto; algunos directorios y componentes están reservados para los sprints posteriores. Su aparición en este esquema no acredita que estén implementados.
+\section{Flujo de ramas y revisión}
+\begin{enumerate}
+\item Registrar el trabajo mediante un Issue con descripción, responsable, prioridad y criterios de aceptación.
+\item Crear una rama por tarea, con prefijos como \texttt{feat/}, \texttt{fix/}, \texttt{docs/} o \texttt{design/}.
+\item Realizar commits propios, claros y trazables.
+\item Presentar los cambios relevantes mediante Pull Request, solicitando revisión antes de fusionar.
+\item Integrar en \texttt{main}, actualizar los documentos y mover la tarjeta a su estado real.
+\end{enumerate}
+No se deben versionar credenciales, claves privadas ni secretos.
+\section{Roles y Definition of Done}
+\begin{tabularx}{\linewidth}{@{}p{3.2cm}X@{}}\toprule
+\textbf{Integrante} & \textbf{Responsabilidades iniciales}\tabularnewline\midrule
+Raúl & Coordinación del proyecto, seguimiento del tablero y arquitectura compartida.\tabularnewline
+Hebert & Documentación, criterios de aceptación, apoyo a infraestructura y ESP32.\tabularnewline
+Noa & Diseño UI/UX, documentación del dashboard y organización del backlog/Kanban.\tabularnewline\bottomrule\end{tabularx}
+Los tres integrantes participan en la definición e integración de software y datos, y los responsables concretos de cada Issue se consultan en GitHub. Los roles y la Definition of Done están documentados en \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/roles-y-definition-of-done.md}{docs/roles-y-definition-of-done.md}.
+
+Una tarea se considera terminada cuando cumple el objetivo y criterios de aceptación, dispone de evidencias, está documentada, no expone secretos y sigue el procedimiento de revisión e integración acordado, salvo excepción explícita aceptada y registrada.
+\section{Evidencias de commits individuales}
+El equipo ha registrado commits identificables de sus tres miembros. La siguiente selección permite acceder a ejemplos verificables y distinguir los commits de integración de la autoría de los cambios incluidos.
+\begin{longtable}{@{}p{2.1cm}p{2.1cm}p{7.9cm}@{}}\toprule
+\textbf{Integrante} & \textbf{Commit} & \textbf{Descripción/evidencia}\tabularnewline\midrule\endhead
+Noa & \src{https://github.com/rrrarrra9/AhorraTenergia/commit/5c61f26658ee3ca4507c5e63d5122b2a6593a013}{5c61f26} & Reorganización del diseño dentro de \texttt{design/}.\tabularnewline
+Noa & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{8db2395} & Commit de integración de documentación de cierre.\tabularnewline
+Hebert & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{6785f7a} & Plantilla de retrospectiva del Sprint 1.\tabularnewline
+Hebert & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{66c2221} & Plantilla de Sprint Review.\tabularnewline
+Raúl & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{68cfde0} & Integración de la actualización del README.\tabularnewline
+Raúl & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{132db5b} & Integración de la documentación de planificación.\tabularnewline\bottomrule
+\end{longtable}
+Los commits de fusión demuestran actividad de integración y no sustituyen la identificación de los autores de los commits de contenido. \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12\#issuecomment-6249761992}{Registro de evidencias en el Issue \#12}.
+\section{Pull Requests: estado de revisión}
+\begin{tabularx}{\linewidth}{@{}p{1.5cm}Xp{3.5cm}@{}}\toprule
+\textbf{PR} & \textbf{Contenido} & \textbf{Estado de revisión}\tabularnewline\midrule
+\src{https://github.com/rrrarrra9/AhorraTenergia/pull/4}{\#4} & Diseño inicial del dashboard & Fusionada; sin aprobación formal registrada.\tabularnewline
+\src{https://github.com/rrrarrra9/AhorraTenergia/pull/7}{\#7} & Roles y Definition of Done & Fusionada; sin aprobación formal registrada.\tabularnewline
+\src{https://github.com/rrrarrra9/AhorraTenergia/pull/27}{\#27} & Organización de archivos de diseño & Fusionada; sin aprobación formal registrada.\tabularnewline
+\src{https://github.com/rrrarrra9/AhorraTenergia/pull/30}{\#30} & Plantillas Review y Retrospectiva & Fusionada; aprobación formal de Raúl.\tabularnewline\bottomrule\end{tabularx}
+La PR \#30 cuenta con revisión \texttt{APPROVED} de Raúl el 17/10/2026, anterior a la fusión del 18/10/2026. El registro detallado figura en \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12\#issuecomment-6249800716}{Issue \#12}.
+\subsection{Excepción de revisión del dashboard}
+Las PR \#4 y \#27 se integraron sin aprobación formal previa registrada. Raúl validó después el diseño y confirmó expresamente la aceptación de una \textbf{excepción puntual} al procedimiento del Sprint 1. La validación posterior no se presenta como aprobación previa. La excepción y la necesidad de mejorar el proceso quedaron documentadas en el \src{https://github.com/rrrarrra9/AhorraTenergia/issues/3\#issuecomment-6253334547}{Issue \#3}; este Issue está cerrado y con 8/8 tareas completadas.
+\section{Colaboradores, profesorado y permisos}
+Los tres integrantes del equipo colaboran en el repositorio y han dejado contribuciones propias. También hay evidencia de que el repositorio y el GitHub Project pueden consultarse públicamente. \textbf{La inclusión del profesorado como colaborador individual, si se exige acceso de escritura, no queda acreditada por la mera visibilidad pública y debe verificarse en Settings/Collaborators y documentarse.}
+\section{README y trazabilidad}
+El \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/README.md}{README.md} es la portada operativa del repositorio. Debe conservar el nombre, la frase de venta, el equipo, los ciclos formativos, el objetivo del repositorio y el estado real del sprint. La comprobación definitiva del README corresponde al cierre del 20/10, cuando se actualicen las actas.
+
+\chapter{Planificación del proyecto}
+\section{Alcance del MVP}
+Se contempla trabajar con datos energéticos simulados, una API y reglas de negocio iniciales, persistencia en Supabase, un dashboard web React, una aplicación Android Java y una integración de prueba con ESP32. Los modos automático y manual se limitarán al entorno simulado. No se prevé actuar sobre sistemas eléctricos reales en esta fase.
+\section{Arquitectura técnica inicial}
+\begin{table}[H]\centering
+\begin{tabularx}{\linewidth}{@{}p{4cm}X@{}}\toprule
+\textbf{Componente} & \textbf{Responsabilidad prevista}\tabularnewline\midrule
+React & Visualizar el dashboard y permitir consultar variables.\tabularnewline
+Android Java & Consulta móvil de información proporcionada por el backend.\tabularnewline
+ASP.NET Core / C\# & API, lógica de decisión, validación y coordinación.\tabularnewline
+Supabase / PostgreSQL & Persistencia de mediciones, estados e histórico.\tabularnewline
+ESP32 / C++ & Simulación de mediciones y de recepción de órdenes.\tabularnewline\bottomrule\end{tabularx}
+\end{table}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[>=stealth, every node/.style={font=\sffamily\small}, box/.style={draw=forest,rounded corners=3pt,thick,fill=mint,text width=3.2cm,align=center,minimum height=1.1cm}]
+\node[box] (web) at (0,3) {Frontend web\\React};
+\node[box] (and) at (7,3) {App Android\\Java};
+\node[box] (api) at (3.5,1.25) {Backend/API\\ASP.NET Core};
+\node[box] (db) at (0,-0.55) {Datos históricos\\Supabase};
+\node[box] (esp) at (7,-0.55) {Medidas simuladas\\ESP32};
+\draw[<->,thick,forest] (web) -- (api);
+\draw[<->,thick,forest] (and) -- (api);
+\draw[<->,thick,forest] (api) -- (db);
+\draw[<->,thick,forest] (api) -- (esp);
+\end{tikzpicture}
+\caption{Arquitectura conceptual prevista para el MVP; no acredita conexiones ya implementadas.}
+\end{figure}
+El backend concentra las decisiones; el formato de mensajes, protocolo y frecuencia de actualización están pendientes de definición técnica. Todas las órdenes y medidas ilustran una simulación.
+\section{Ceremonias y calendario}
+\begin{tabularx}{\linewidth}{@{}p{3.5cm}X@{}}\toprule
+\textbf{Reunión/fecha} & \textbf{Propósito y registro}\tabularnewline\midrule
+08/10, 16:45--18:30 & Puesta en común del proyecto; acuerdos en el acta de Planning.\tabularnewline
+13/10, 16:45--18:30 & Revisión de prioridades y estado; documentar avances reales.\tabularnewline
+15/10, 16:45--18:30 & Seguimiento de entregables y revisión de incidencias.\tabularnewline
+19/10, 15:30--16:30 & Preparación prevista de cierre y actualización de evidencias.\tabularnewline
+20/10 & Sprint Review y Retrospectiva previstas; registrar resultados tras celebrarse.\tabularnewline\bottomrule\end{tabularx}
+Estas fechas reflejan la planificación descrita en la memoria original. \textbf{La celebración efectiva, asistentes y acuerdos de cada sesión deben estar acreditados en actas o comentarios; no se infieren por la existencia de un calendario.}
+\section{Milestones y tablero Kanban}
+El \src{https://github.com/users/rrrarrra9/projects/1}{GitHub Project} utiliza las columnas \emph{Backlog, Por hacer, En curso, En revisión y Hecho}. El backlog consta de 17 Issues de trabajo identificados previamente por el equipo, con tareas del Sprint 1 y otras futuras sin incluir en ese milestone.
+
+El \textbf{milestone Sprint 1} agrupa nueve Issues, con el estado siguiente a fecha de corte:\par
+\begin{longtable}{@{}p{1.25cm}p{6.3cm}p{2.35cm}p{1.55cm}@{}}\toprule
+\textbf{Issue} & \textbf{Actividad} & \textbf{Responsable} & \textbf{Estado}\tabularnewline\midrule\endhead
+\#2 & Estructura inicial del repositorio & Hebert & Cerrado\tabularnewline
+\#3 & Diseño inicial del dashboard & Noa & Cerrado\tabularnewline
+\#5 & Sprint 1 -- Planning & Hebert & Cerrado\tabularnewline
+\#6 & Roles y Definition of Done & Hebert & Cerrado\tabularnewline
+\#8 & Capítulo 1 de la memoria técnica & Hebert & Cerrado\tabularnewline
+\#9 & Configuración del tablero Kanban & Noa & Cerrado\tabularnewline
+\#10 & Elaboración y priorización del backlog & Noa & Cerrado\tabularnewline
+\#11 & Arquitectura inicial del sistema & Raúl & Cerrado\tabularnewline
+\#12 & Evidencias y documentación de cierre & Noa & Abierto\tabularnewline\bottomrule\end{longtable}
+\important{\textbf{Seguimiento:} 8 Issues cerrados de 9 del Sprint 1 (88,9\%). El Issue \#12 conserva dos tareas pendientes: registrar la Review y la Retrospectiva una vez celebradas. El porcentaje no equivale a una valoración automática de todos los criterios del profesor.}
+La creación y las fechas exactas del milestone \emph{Sprint 2} deben acreditarse con su enlace o captura. No se considera demostrado por figurar en el plan del proyecto.
+\section{Responsables y áreas}
+Raúl coordina el trabajo y la arquitectura; Noa lidera la propuesta de UI/UX y contribuye al Kanban y backlog; Hebert documenta roles, planificación y memoria, con participación en ESP32. El trabajo de backend, web, datos y Android se plantea como compartido hasta asignar Issues concretos en los próximos sprints.
+\section{Actas y seguimiento semanal}
+El \src{https://github.com/rrrarrra9/AhorraTenergia/issues/5}{Issue \#5 (Planning)} está cerrado con su checklist completo. El repositorio contiene asimismo documentación de actas en \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/actas}{docs/actas}. Para demostrar plenamente el seguimiento semanal se deben conservar, en el Issue o en las actas, \emph{fechas, participantes, avances, dificultades, decisiones y responsables}. Esta memoria no inventa reuniones ni acuerdos no contrastados.
+
+\chapter{Backlog inicial y prioridades}
+\section{Criterio de elaboración}
+La memoria original identifica 25 tareas de referencia, cumpliendo el mínimo de 15 solicitado. Los códigos \texttt{AT-01} a \texttt{AT-25} son identificadores \emph{documentales}: no deben confundirse automáticamente con los números de Issue de GitHub. La trazabilidad debe revisarse cuando se prioricen y subdividan las tareas.
+\small
+\begin{longtable}{@{}p{1.4cm}p{2.5cm}p{7.0cm}p{1.5cm}@{}}\toprule
+\textbf{ID} & \textbf{Área} & \textbf{Resultado esperado} & \textbf{Prioridad}\tabularnewline\midrule\endhead
+AT-01 & Coordinación & Crear y mantener la estructura inicial del repositorio. & Alta\tabularnewline
+AT-02 & Coordinación & Definir convenciones de ramas, commits e Issues. & Alta\tabularnewline
+AT-03 & Documentación & Completar la memoria del Sprint 1. & Alta\tabularnewline
+AT-04 & Documentación & Registrar reuniones y acuerdos confirmados. & Alta\tabularnewline
+AT-05 & Diseño & Preparar propuesta inicial del dashboard. & Alta\tabularnewline
+AT-06 & Diseño & Vincular el diseño al Issue y a evidencias. & Alta\tabularnewline
+AT-07 & Arquitectura & Documentar los componentes y sus relaciones. & Alta\tabularnewline
+AT-08 & Backend & Crear estructura inicial de ASP.NET Core. & Alta\tabularnewline
+AT-09 & Backend & Definir los primeros endpoints de la API. & Alta\tabularnewline
+AT-10 & Backend & Definir modelos de variables energéticas. & Alta\tabularnewline
+AT-11 & Backend & Especificar primera regla de decisión simulada. & Alta\tabularnewline
+AT-12 & Datos & Proponer tablas de Supabase. & Alta\tabularnewline
+AT-13 & Datos & Definir persistencia de medidas y fechas. & Media\tabularnewline
+AT-14 & Web & Crear estructura base de React. & Alta\tabularnewline
+AT-15 & Web & Diseñar componentes principales del dashboard. & Alta\tabularnewline
+AT-16 & Web & Preparar consumo de datos de la API. & Media\tabularnewline
+AT-17 & Android & Crear estructura inicial de app Java. & Media\tabularnewline
+AT-18 & Android & Diseñar vista inicial de consulta del estado. & Media\tabularnewline
+AT-19 & ESP32 & Definir formato de datos simulados. & Alta\tabularnewline
+AT-20 & ESP32 & Preparar intercambio de prueba con backend. & Media\tabularnewline
+AT-21 & Integración & Definir formato de órdenes y respuestas. & Media\tabularnewline
+AT-22 & Pruebas & Definir escenarios de producción, consumo y batería. & Alta\tabularnewline
+AT-23 & Pruebas & Comprobar validación y coherencia de datos. & Media\tabularnewline
+AT-24 & Seguridad & Evitar exposición de credenciales. & Alta\tabularnewline
+AT-25 & Entrega & Revisar el estado del sprint y preparar evidencias. & Alta\tabularnewline\bottomrule
+\end{longtable}
+\normalsize
+\section{Relación con GitHub Project}
+El \src{https://github.com/rrrarrra9/AhorraTenergia/issues/10}{Issue \#10} acredita la revisión del Product Backlog y el equipo informó de 17 Issues de trabajo en el Project. Esta diferencia con los 25 elementos documentales se explica por niveles diferentes de desglose y planificación. \textbf{Queda recomendable completar una matriz AT--Issue} para evitar asumir correspondencias inexistentes.
+\section{Criterios de aceptación}
+Cada Issue debe disponer de un resultado verificable, responsable, prioridad y evidencia proporcional al tipo de tarea: commit, PR, documentación, captura, prueba o demostración. Las funcionalidades futuras no deben figurar como realizadas durante este sprint.
+
+\chapter{Metodología de trabajo y riesgos}
+\section{Organización}
+El equipo emplea una dinámica incremental: registrar necesidad, priorizar, asignar responsable, desarrollar en una rama, probar, revisar, fusionar y actualizar evidencias. La comunicación y las decisiones relevantes se documentan en GitHub y en las actas.
+\section{Riesgos identificados}
+\begin{tabularx}{\linewidth}{@{}p{3cm}X X@{}}\toprule
+\textbf{Riesgo} & \textbf{Impacto} & \textbf{Mitigación}\tabularnewline\midrule
+Integración tecnológica & Fallos al conectar componentes & Definir contratos de API y formatos de datos.\tabularnewline
+Alcance excesivo & MVP difícil de completar & Priorizar simulación y funciones imprescindibles.\tabularnewline
+Servicios externos & Bloqueos por terceros & Emplear datos de prueba y alternativas.\tabularnewline
+Conflictos Git & Integraciones defectuosas & Ramas por tarea, PR y revisiones.\tabularnewline
+Credenciales expuestas & Problemas de seguridad & Variables de entorno, secretos fuera de Git.\tabularnewline
+Falta de evidencias & Dificultades en evaluación & Mantener capturas, actas, commits e Issues.\tabularnewline
+Revisión omitida & Incumplimiento de DoD & Exigir aprobación previa o documentar la excepción.\tabularnewline\bottomrule\end{tabularx}
+\section{Decisiones técnicas todavía abiertas}
+Permanece por concretar el contrato API, el protocolo ESP32--backend, el modelo final de datos y políticas de acceso, la fuente de tarifas eléctricas, las reglas exactas de los modos simulados, el despliegue y los criterios cuantificables de prueba. Estos elementos pertenecen a la evolución del MVP, no se consideran implementados en el Sprint 1.
+
+\chapter{Sprint Review y Retrospectiva}
+\section{Situación del cierre a 19/10/2026}
+La Sprint Review y la Retrospectiva están previstas para el 20/10/2026. El equipo preparó plantillas en el repositorio mediante la \src{https://github.com/rrrarrra9/AhorraTenergia/pull/30}{PR \#30}. La preparación de las plantillas \textbf{no constituye evidencia de celebración} de las reuniones.
+\section{Sprint Review: estructura del acta}
+El acta disponible se encuentra en \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/actas/2026-10-20-sprint-review.md}{docs/actas/2026-10-20-sprint-review.md}. Una vez celebrada, debe incluir:
+\begin{enumerate}
+\item Fecha real, asistentes, duración y objetivo.
+\item Actividades previstas frente a actividades entregadas.
+\item Evidencias enlazadas: repositorio, tablero, commits, PR, memoria y demostración.
+\item Tareas no terminadas y causas; decisiones y próximos responsables.
+\item Acuerdos verificables y actualización del README/Project.
+\end{enumerate}
+\important{\textbf{Pendiente hasta después del 20/10:} trasladar a esta memoria las conclusiones reales del acta de Sprint Review. No se inventan resultados de la ceremonia.}
+\section{Retrospectiva: estructura del acta}
+El equipo ha preparado una plantilla en \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/retrospectivas}{docs/retrospectivas}. Después de la reunión se documentarán:
 \begin{itemize}
-  \item Definir la arquitectura y la comunicación entre las interfaces de usuario, el backend, la base de datos y la ESP32.
-  \item Generar o recibir datos simulados sobre producción solar, consumo eléctrico y nivel de batería.
-  \item Diseñar una API en ASP.NET Core para procesar, consultar y coordinar la información del sistema.
-  \item Almacenar las medidas y los resultados simulados en una base de datos PostgreSQL mediante Supabase.
-  \item Diseñar un dashboard web con React y una aplicación Android en Java para consultar los datos.
-  \item Definir reglas de decisión simuladas basadas en el precio eléctrico y la disponibilidad de energía, y verificar su coherencia mediante pruebas.
+\item Qué funcionó bien y por qué.
+\item Qué dificultades surgieron, incluida la revisión previa de las PR.
+\item Qué acciones concretas se aprueban para el Sprint 2, con responsables.
+\item Cómo y cuándo se comprobará cada mejora.
 \end{itemize}
+\important{\textbf{Pendiente hasta después del 20/10:} registrar la retrospectiva real y sustituir cualquier hipótesis de mejora por acuerdos adoptados.}
+\section{Posibles temas para la reunión, sin presentar como acuerdos}
+Revisar el tablero al inicio de cada sesión, mejorar la puntualidad de las revisiones, concretar formatos de datos con ESP32, mantener demostraciones pequeñas y registrar bloqueos con responsables. Son \emph{propuestas a debatir}, no decisiones aprobadas.
 
-\section{Alcance inicial y límites del prototipo}
-La primera versión se centrará en \textbf{datos simulados} y en demostrar la comunicación entre componentes. La arquitectura prevista emplea React para la web, Java para Android, ASP.NET Core para el backend, Supabase/PostgreSQL para la persistencia y ESP32 programada en C++ para representar la parte electrónica. Son tecnologías previstas para el desarrollo, no funcionalidades que se consideren terminadas en este sprint.
+\chapter{Entregables, evidencias y verificación final}
+\section{Matriz de entregables}
+\small
+\begin{longtable}{@{}p{4.35cm}p{4.8cm}p{2.4cm}@{}}\toprule
+\textbf{Entregable} & \textbf{Localización principal} & \textbf{Situación}\tabularnewline\midrule\endhead
+Repositorio y README & \src{https://github.com/rrrarrra9/AhorraTenergia}{Repositorio GitHub} & Existente; actualizar al cierre\tabularnewline
+Tablero Kanban & \src{https://github.com/users/rrrarrra9/projects/1}{GitHub Project} & Configurado\tabularnewline
+Backlog (mín. 15) & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/10}{Issue \#10} & Cerrado\tabularnewline
+Roles y Definition of Done & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/roles-y-definition-of-done.md}{Documento de roles} & Documentado\tabularnewline
+Diseño inicial & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/design/dashboard-inicial.png}{design/dashboard-inicial.png} & Entregado\tabularnewline
+Documentación del diseño & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/design/README.md}{design/README.md} & Entregada\tabularnewline
+Arquitectura & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/11}{Issue \#11} & Cerrado\tabularnewline
+Memoria LaTeX y PDF & \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/memoria}{docs/memoria} & Compilación acreditada\tabularnewline
+Acta Planning & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/5}{Issue \#5} & Cerrado\tabularnewline
+Commits y PR & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12}{Issue \#12} & Evidencias registradas\tabularnewline
+Sprint Review & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/actas/2026-10-20-sprint-review.md}{Plantilla de acta} & Pendiente reunión\tabularnewline
+Retrospectiva & \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/retrospectivas}{Plantilla} & Pendiente reunión\tabularnewline
+Acceso del profesorado & Configuración de colaboradores / acceso público & Verificación individual pendiente\tabularnewline
+Milestone Sprint 2 & GitHub Milestones & Evidencia pendiente\tabularnewline\bottomrule
+\end{longtable}
+\normalsize
+\section{Evidencia de compilación de LaTeX}
+Hebert documentó la compilación mediante Overleaf: \textbf{0 errores}, 2 advertencias de fuentes y 4 mensajes informativos, con PDF generado. Se identificó \texttt{docs/memoria/main.tex} como versión de repositorio y se enlazó el PDF de la memoria. \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12\#issuecomment-6238470647}{Evidencia y captura del registro}. La nueva versión de este documento también se proporciona en \LaTeX{} editable y PDF compilado.
+\section{Checklist de cierre alineado con el profesor}
+\begin{longtable}{@{}p{8.8cm}p{3.1cm}@{}}\toprule
+\textbf{Comprobación} & \textbf{Situación al 19/10}\tabularnewline\midrule\endhead
+Project refleja el estado real & Validación operativa; revisar al cierre\tabularnewline
+Cada integrante tiene actividad propia visible & Evidencias de commits documentadas\tabularnewline
+PR relevantes revisadas o justificadas & PR \#30 aprobada; excepciones identificadas\tabularnewline
+Capítulo 1 LaTeX escrito y compila & Documentado; PDF disponible\tabularnewline
+Planning y seguimiento semanal & Planning cerrado; seguimiento a acreditar en actas\tabularnewline
+Sprint Review documentada con resultados reales & Pendiente 20/10\tabularnewline
+Retrospectiva documentada con acuerdos reales & Pendiente 20/10\tabularnewline
+Backlog, README, roles y DoD & Documentados; README actualizar al cierre\tabularnewline
+Todos los entregables enlazados en el repositorio & Verificar enlaces definitivos\tabularnewline
+Milestones 1 y 2 con fechas & Sprint 1 verificado; Sprint 2 pendiente prueba\tabularnewline
+Profesorado añadido con acceso requerido & Pendiente de comprobación\tabularnewline\bottomrule\end{longtable}
+\section{Tareas necesarias antes de la entrega definitiva}
+\begin{enumerate}
+\item Celebrar la Review y Retrospectiva del 20/10 y rellenar las actas con resultados reales.
+\item Completar y cerrar el Issue \#12 cuando estén publicadas y verificadas ambas actas.
+\item Confirmar y acreditar el acceso requerido del profesorado y las fechas del milestone Sprint 2.
+\item Dejar constancia escrita del seguimiento semanal y de las decisiones adoptadas.
+\item Actualizar el README con el estado final y confirmar el Kanban/Project.
+\item Si se requiere trazabilidad exhaustiva, elaborar el mapeo entre los 25 códigos AT y los Issues efectivos.
+\end{enumerate}
+\section{Fuentes de referencia}
+\begin{itemize}
+\item Guía docente: \emph{Sprint 01 -- Arranque y planificación inicial}, 06/10/2026--20/10/2026.
+\item Documento de trabajo \emph{AhorraTenergia -- Sprint 01 -- Memoria de planificación, arquitectura y organización del proyecto} (19 páginas).
+\item Repositorio y evidencias: \url{https://github.com/rrrarrra9/AhorraTenergia}.
+\end{itemize}
+\chapter*{Conclusión}\addcontentsline{toc}{chapter}{Conclusión}
+Durante el Sprint 1, AhorraTenergia ha establecido una base organizativa y técnica: definición del problema y usuario, propuesta de arquitectura, backlog, roles, tablero y memoria inicial. La documentación de GitHub permite demostrar contribuciones individuales, diseño, seguimiento y decisiones del equipo. A fecha de corte, ocho de nueve Issues del milestone están cerrados; el cierre documental de la Review y la Retrospectiva todavía depende de las reuniones del 20 de octubre.
 
-El prototipo \textbf{no conmutará fuentes eléctricas ni controlará equipos domésticos reales}. Tampoco se considerarán verificados el ahorro económico o la precisión de una gestión automática hasta disponer de pruebas y resultados medibles.
-
-\section{Trabajo correspondiente al Sprint 1}
-De acuerdo con la guía docente, el Sprint 1 (6–20 de octubre de 2026) está dedicado al arranque y la planificación. Sus entregables incluyen la puesta en marcha del repositorio y el tablero de GitHub, el backlog priorizado, los roles del equipo, la \emph{Definition of Done} y este primer capítulo de la memoria en LaTeX.
-
-La trazabilidad de tareas, commits, Pull Requests, reuniones y evidencias se mantiene en el \href{https://github.com/rrrarrra9/AhorraTenergia}{repositorio del proyecto}; no se reproduce íntegramente en este capítulo para evitar duplicaciones y conservar una memoria técnica clara y centrada en lo solicitado.
-
+La evolución del proyecto deberá transformar esta planificación en incrementos funcionales, comenzando por el contrato de datos, la API, la persistencia y la simulación con ESP32. Las decisiones y pruebas se incorporarán a los próximos sprints mediante los mecanismos de seguimiento y revisión acordados.
 \end{document}

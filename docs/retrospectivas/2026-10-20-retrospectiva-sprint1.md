@@ -3,80 +3,77 @@
 **Proyecto:** AhorraTenergia  
 **Sprint:** 1 — Arranque y planificación inicial  
 **Periodo:** 06/10/2026 – 20/10/2026  
-**Fecha prevista:** 20/10/2026  
-**Estado:** Plantilla preparada. Reunión pendiente de celebrar.
+**Fecha de cierre:** 20/10/2026  
+**Estado:** Retrospectiva realizada y conclusiones confirmadas por los tres integrantes.
 
-## 1. Objetivo
-
-Analizar cómo ha trabajado el equipo durante el Sprint 1, identificar las dificultades encontradas y acordar mejoras para los siguientes sprints.
-
-La Retrospectiva se centra en el proceso de trabajo, la comunicación y la organización del equipo.
-
-## 2. Participantes
-
-**Pendiente de confirmar después de la reunión.**
-
-Integrantes del proyecto:
+## 1. Participantes
 
 - Raúl Sánchez Ortiz.
+- Noa Abril Casas.
 - Hebert Alberto Calderon Torres.
-- Noa Abril.
 
-## 3. ¿Qué ha funcionado bien?
+Los tres integrantes confirman estas conclusiones como resultado de la Retrospectiva del Sprint 1.
 
-**Pendiente de completar durante la Retrospectiva.**
+## 2. ¿Qué ha funcionado bien?
 
-Se analizarán aspectos como:
+El equipo considera que durante el Sprint 1 ha funcionado correctamente:
 
-- Organización del repositorio y GitHub Projects.
-- Distribución de responsabilidades.
-- Comunicación entre integrantes.
-- Elaboración de documentación.
-- Colaboración mediante Issues, commits y Pull Requests.
+- La organización inicial del repositorio.
+- El reparto de responsabilidades entre los integrantes.
+- La creación y utilización del tablero Kanban.
+- La documentación del proyecto y de las evidencias.
+- La elaboración de la memoria técnica en LaTeX.
+- La definición de la arquitectura inicial.
+- La propuesta gráfica inicial del dashboard.
 
-## 4. ¿Qué dificultades hemos encontrado?
+Estos elementos han permitido disponer de una base común para comenzar el desarrollo técnico en los siguientes sprints.
 
-**Pendiente de completar después de la reunión.**
+## 3. ¿Qué dificultades hemos encontrado?
 
-Temas propuestos para debatir:
+Se identifican principalmente las siguientes dificultades:
 
-- Tiempo dedicado a la configuración inicial del proyecto.
-- Coordinación y seguimiento de tareas.
-- Diferencias entre prioridades propuestas y asignadas.
-- Pull Requests fusionadas sin aprobación formal previa.
-- Actualización de documentación y evidencias.
+- El uso inicial de GitHub Projects resultó más complejo de lo previsto.
+- Varias Pull Requests fueron fusionadas sin que GitHub registrara una revisión formal `APPROVED` previa.
+- Parte de la documentación y de las evidencias se actualizó de forma posterior, en lugar de registrarse de manera continua.
+- El comentario del profesor sobre la carpeta `tests/` requiere revisar cómo se organizarán las pruebas y qué contenido debe mantenerse en la rama principal.
 
-Las conclusiones se registrarán una vez debatidas por el equipo.
+## 4. ¿Qué vamos a mejorar?
 
-## 5. ¿Qué podemos mejorar?
+El equipo acuerda aplicar las siguientes mejoras:
 
-**Pendiente de acordar durante la reunión.**
+1. **Revisar las Pull Requests antes del merge.**  
+   Una persona distinta al autor deberá revisar la PR y registrar la aprobación formal en GitHub cuando corresponda.
 
-Posibles áreas de mejora:
+2. **Mantener actualizado GitHub Projects.**  
+   El estado de cada Issue debe reflejar el trabajo real: Backlog, Por hacer, En curso, En revisión o Hecho.
 
-- Planificación y estimación de tareas.
-- Procedimiento de revisión de Pull Requests.
-- Comunicación y seguimiento semanal.
-- Gestión de prioridades y bloqueos.
-- Registro continuo de evidencias.
+3. **Registrar evidencias de forma continua.**  
+   Commits, PR, capturas, decisiones y bloqueos se documentarán durante el sprint y no únicamente al final.
 
-## 6. Acciones de mejora para el siguiente sprint
+4. **Revisar la organización de las pruebas.**  
+   Se analizará la observación recibida sobre `tests/` y se evitará introducir en el repositorio cualquier secreto, credencial, dato personal real o configuración sensible.
 
-**Pendiente de completar el 20/10/2026.**
+## 5. Responsables de las mejoras
 
-Por cada acción acordada se registrará:
+- **Raúl:** coordinar el procedimiento de revisión técnica y de Pull Requests.
+- **Noa:** ayudar a mantener actualizado el tablero Kanban y el estado de las tareas.
+- **Hebert:** mantener la trazabilidad documental, las evidencias y el seguimiento de los criterios de aceptación.
+- **Todo el equipo:** aplicar las revisiones cruzadas, mantener GitHub actualizado y registrar los bloqueos.
 
-- Descripción de la mejora.
-- Responsable.
-- Plazo o sprint previsto.
-- Issue relacionado, cuando corresponda.
+## 6. Aplicación en el Sprint 2
 
-## 7. Conclusiones de la Retrospectiva
+Las mejoras anteriores se aplicarán desde el inicio del Sprint 2.
 
-**Pendiente de completar después de celebrar la reunión.**
+El equipo propone comenzar con un primer incremento funcional basado en:
 
-Se resumirán los principales aprendizajes del Sprint 1 y los acuerdos alcanzados por el equipo.
+- API ASP.NET Core con datos energéticos simulados.
+- Dashboard React.
+- Simulación de telemetría energética mediante ESP32 y C++.
 
----
+La planificación concreta se encuentra en el Issue de Sprint 2 y queda pendiente de asociar a las fechas oficiales que determine el profesor.
 
-**Nota:** Este documento es una plantilla preparatoria. No representa una Retrospectiva celebrada ni acuerdos ya aprobados.
+## 7. Conclusión
+
+El Sprint 1 ha permitido establecer la organización, documentación y arquitectura inicial de AhorraTenergia. La principal mejora de proceso para los siguientes sprints será aumentar la trazabilidad de las revisiones, mantener actualizado el tablero y registrar las evidencias durante el desarrollo.
+
+Las conclusiones de esta retrospectiva han sido confirmadas por Raúl, Noa y Hebert.

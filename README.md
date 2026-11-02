@@ -140,46 +140,59 @@ Cada integrante trabajará desde su cuenta de GitHub, registrando sus contribuci
 
 ### Sprint 1 — Arranque y planificación inicial
 
-**Periodo:** 06/10/2026 - 20/10/2026.
+**Periodo:** 06/10/2026 - 20/10/2026  
+**Estado:** Cerrado.
 
-Actualmente, AhorraTenergia se encuentra en su primera fase de organización y planificación.
+El Sprint 1 de AhorraTenergia ha finalizado con las tareas previstas de arranque, organización y planificación completadas.
 
-Los objetivos principales de este sprint son:
+Durante este sprint se ha trabajado en:
 
-- Configurar el repositorio y la estructura inicial del proyecto.
-- Incorporar a todos los integrantes y al profesorado.
-- Crear el tablero de gestión mediante GitHub Projects.
-- Definir los roles y responsabilidades del equipo.
-- Elaborar el backlog inicial de funcionalidades.
-- Documentar la arquitectura general del sistema.
-- Iniciar la memoria técnica en LaTeX.
-- Delimitar las funcionalidades de la primera versión del proyecto.
+- Configuración del repositorio y estructura inicial del proyecto.
+- Organización del GitHub Project mediante un tablero Kanban.
+- Elaboración y priorización del Product Backlog.
+- Definición de roles y Definition of Done.
+- Documentación de la arquitectura inicial del sistema.
+- Diseño inicial del dashboard.
+- Redacción de la memoria técnica en LaTeX.
+- Registro de reuniones, evidencias y seguimiento del sprint.
+- Sprint Review y Retrospectiva del Sprint 1.
 
-**Estado:** Sprint 1 en curso. Las tareas se considerarán completadas únicamente cuando estén realizadas y verificadas en GitHub.
+### Resultado del Sprint 1
 
-### Seguimiento y entregables del Sprint 1
+- **9 de 9 Issues del Sprint 1 cerrados.**
+- Backlog inicial organizado y priorizado.
+- Memoria técnica disponible en LaTeX y PDF.
+- Arquitectura inicial documentada.
+- Propuesta gráfica inicial disponible.
+- Sprint Review documentada.
+- Retrospectiva documentada.
+- Evidencias del sprint recopiladas en GitHub.
 
-El trabajo del equipo puede consultarse en:
+### Entregables y evidencias
 
 - [GitHub Project — Tablero Kanban](https://github.com/users/rrrarrra9/projects/1)
 - [Product Backlog — Issue #10](https://github.com/rrrarrra9/AhorraTenergia/issues/10)
-- [Evidencias del Sprint 1 — Issue #12](https://github.com/rrrarrra9/AhorraTenergia/issues/12)
+- [Evidencias y cierre del Sprint 1 — Issue #12](https://github.com/rrrarrra9/AhorraTenergia/issues/12)
 - [Acta de planificación](docs/actas/2026-10-08-planning-sprint1.md)
+- [Sprint Review](docs/actas/2026-10-20-sprint-review.md)
+- [Retrospectiva del Sprint 1](docs/retrospectivas/2026-10-20-retrospectiva-sprint1.md)
 - [Arquitectura inicial](docs/adr/ADR-001-arquitectura.md)
 - [Roles y Definition of Done](docs/roles-y-definition-of-done.md)
 - [Memoria técnica en LaTeX](docs/memoria/main.tex)
-- [Memoria en PDF](docs/memoria/memoria-sprint1.pdf)
+- [Memoria técnica en PDF](docs/memoria/memoria-sprint1.pdf)
 - [Diseño inicial del dashboard](design/dashboard-inicial.png)
-- [Documento de evidencias](docs/sprint1/estado-y-evidencias.md)
 
-**Estado a 17/10/2026:**
+### Sprint 2
 
-- 17 tareas organizadas en GitHub Projects.
-- Prioridades asignadas: 13 P1 y 4 P2.
-- Validación final del backlog pendiente por parte del equipo.
-- Sprint Review y Retrospectiva previstas para el 20/10/2026.
+La planificación inicial del Sprint 2 se está preparando en el [Issue #34](https://github.com/rrrarrra9/AhorraTenergia/issues/34).
 
-El Sprint 1 permanece en curso. Sus resultados definitivos se documentarán después de las reuniones de cierre.
+El objetivo propuesto es comenzar el desarrollo de un primer incremento funcional del MVP mediante:
+
+- Backend ASP.NET Core.
+- Dashboard React.
+- Simulación de datos energéticos mediante ESP32 y C++.
+
+Las fechas y el alcance definitivo del Sprint 2 se establecerán según las indicaciones del profesorado y los acuerdos del equipo.
 
 ## 8. Alcance inicial
 

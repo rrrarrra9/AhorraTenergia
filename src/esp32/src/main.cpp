@@ -1,5 +1,11 @@
 #include <Arduino.h>
 #include <time.h>
+// Librería oficial de ESP32 para conectarse a redes Wi-Fi.
+#include <WiFi.h>
+
+// Archivo local con el nombre y contraseña de la red.
+// Este archivo está ignorado por Git para no subir credenciales.
+#include "secrets.h"
 
 /*
  * AhorraTenergia
@@ -458,6 +464,45 @@ void setup()
      * visualizar los mensajes desde PlatformIO.
      */
     Serial.begin(115200);
+
+    // Informamos por el monitor serie de que empieza la conexión.
+    Serial.println("Conectando a Wi-Fi...");
+
+    // Intentamos conectarnos usando las credenciales de secrets.h.
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+    // Guardamos el momento en el que empezamos a intentar la conexión.
+    unsigned long wifiStartTime = millis();
+
+    // Damos un máximo de 10 segundos para conectarnos.
+    // Así evitamos que el programa se quede bloqueado indefinidamente
+    // si la red Wi-Fi no está disponible.
+    while (WiFi.status() != WL_CONNECTED && 
+            millis() - wifiStartTime < 10000)
+    {
+        delay(500);
+        Serial.print(".");
+    }
+
+    // Comprobamos el resultado del intento de conexión.
+    if (WiFi.status() == WL_CONNECTED)
+    {
+        // La conexión se ha realizado correctamente.
+        Serial.println();
+        Serial.println("Wi-Fi conectado");
+
+        // Mostramos la IP asignada por el router.
+        Serial.print("Dirección IP: ");
+        Serial.println(WiFi.localIP());
+    }
+    else
+    {
+        // Si después de 10 segundos no hay conexión,
+        // informamos del error pero dejamos que el simulador continue.
+        Serial.println();
+        Serial.println("No se pudo conectar a Wi-Fi.");
+        Serial.println("El simulador continuará funcionando sin conexión.");
+    }
 
     /*
      * Pequeña espera para permitir que el puerto serie

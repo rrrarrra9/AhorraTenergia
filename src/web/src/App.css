@@ -1,0 +1,289 @@
+
+/*
+ * App.css
+ *
+ * Estilos iniciales del dashboard de AhorraTenergia.
+ * Utilizamos verde y tonos neutros para mantener
+ * la estética energética del proyecto.
+ */
+
+/* Contenedor principal de la aplicación. */
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  color: #193f34;
+}
+
+/* Encabezado con el nombre del proyecto. */
+.dashboard-header {
+  margin-bottom: 32px;
+}
+
+.dashboard-header h1 {
+  margin: 0 0 8px;
+  font-size: 36px;
+}
+
+.dashboard-header p {
+  margin: 0;
+  color: #536158;
+}
+
+/* Distribuimos las tarjetas en columnas adaptables. */
+.energy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* Estilo que comparten todas las tarjetas. */
+.energy-card {
+  background-color: #ffffff;
+  border: 1px solid #d8e5dc;
+  border-radius: 14px;
+  padding: 24px;
+  min-width: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Nombre del indicador energético. */
+.energy-card-title {
+  margin: 0 0 16px;
+  color: #536158;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Valor principal y unidad. */
+.energy-card-value {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #193f34;
+}
+
+.energy-card-unit {
+  font-size: 16px;
+  font-weight: normal;
+  color: #536158;
+}
+
+/* Información adicional situada bajo las tarjetas. */
+.dashboard-info {
+  margin-top: 28px;
+  padding: 20px 24px;
+  background-color: #eaf2ec;
+  border-radius: 14px;
+}
+
+.dashboard-info p {
+  margin: 8px 0;
+}
+
+/* Adaptamos las tarjetas a tabletas. */
+@media (max-width: 900px) {
+  .energy-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* En móviles mostramos las tarjetas una debajo de otra. */
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 20px 16px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 28px;
+  }
+
+  .energy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*
+ * Estilos del gráfico histórico.
+ * Mantenemos los mismos colores y bordes
+ * utilizados en las tarjetas energéticas.
+ */
+
+.chart-container {
+  margin-top: 28px;
+  padding: 24px;
+  background-color: #ffffff;
+  border: 1px solid #d8e5dc;
+  border-radius: 14px;
+}
+
+.chart-container h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  color: #193f34;
+}
+
+.chart-description {
+  margin: 0 0 20px;
+  color: #536158;
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.chart-legend span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Indicador verde para el consumo. */
+.legend-consumption::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #2e6b4f;
+  border-radius: 50%;
+}
+
+/* Indicador amarillo para la producción solar. */
+.legend-solar::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #e5a44b;
+  border-radius: 50%;
+}
+
+/* El SVG ocupa el ancho disponible del contenedor. */
+.energy-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .chart-container {
+    padding: 16px;
+  }
+
+  .chart-container h2 {
+    font-size: 18px;
+  }
+}
+
+/*
+ * Estados de interfaz del dashboard.
+ *
+ * Estos estilos permiten mostrar mensajes claros
+ * mientras esperamos datos o cuando ocurre algún problema.
+ */
+
+/* Selector para comprobar estados durante el desarrollo. */
+.dashboard-tests {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  background-color: #eaf2ec;
+  border-radius: 12px;
+}
+
+.dashboard-tests label {
+  font-weight: 600;
+  color: #193f34;
+}
+
+
+/*
+ * Selector para probar los estados del dashboard.
+ *
+ * Quitamos la flecha predeterminada del navegador
+ * y añadimos una propia para controlar su posición.
+ */
+.dashboard-tests select {
+  /* Dejamos espacio a la derecha para la flecha. */
+  padding: 10px 42px 10px 14px;
+
+  border: 1px solid #b8cfc0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #193f34;
+  font-size: 14px;
+
+  /* Ocultamos la flecha que dibuja el navegador. */
+  appearance: none;
+
+  /* Dibujamos una flecha verde con SVG. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23193f34' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+
+  /* Colocamos la flecha a 14px del borde derecho. */
+  background-position: right 14px center;
+  background-size: 14px;
+
+  cursor: pointer;
+}
+
+/* Resaltamos el selector cuando está seleccionado. */
+.dashboard-tests select:focus-visible {
+  outline: 2px solid #2e6b4f;
+  outline-offset: 2px;
+}
+
+
+/* Mensaje que ocupa el espacio del contenido principal. */
+.dashboard-message {
+  padding: 42px 24px;
+  background-color: white;
+  border: 1px solid #d8e5dc;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.dashboard-message h2 {
+  margin: 0 0 12px;
+  color: #193f34;
+}
+
+.dashboard-message p {
+  color: #536158;
+  line-height: 1.6;
+}
+
+/* Diferenciamos el mensaje de error. */
+.dashboard-message.error {
+  border-color: #e4b4b4;
+  background-color: #fffafa;
+}
+
+.dashboard-message.error h2 {
+  color: #a33c3c;
+}
+
+/* Botón para volver a probar la carga. */
+.dashboard-message button {
+  margin-top: 14px;
+  padding: 11px 18px;
+  background-color: #2e6b4f;
+  border: 0;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dashboard-message button:hover {
+  background-color: #193f34;
+}

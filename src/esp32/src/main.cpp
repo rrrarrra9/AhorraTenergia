@@ -7,6 +7,9 @@
 // Este archivo está ignorado por Git para no subir credenciales.
 #include "secrets.h"
 
+// Libreria que permite realizar peticiones HTTP desde la ESP32.
+#include <HTTPClient.h>
+
 /*
  * AhorraTenergia
  * Sprint 2 - Simulador de telemetría energética
@@ -81,6 +84,9 @@ unsigned long lastMeasurementMs = 0;
  */
 const time_t BASE_TIMESTAMP = 1794168000;
 
+// Indica si la ESP32 ha conseguido obtener la hora real desde Internet.
+bool timeSynchronized = false;
+
 
 /* =========================================================
    ESTADO INICIAL DE LA BATERÍA
@@ -140,53 +146,61 @@ float randomFloat(float minValue, float maxValue)
    GENERACIÓN DEL TIMESTAMP
    ========================================================= */
 
-/*
- * Esta función genera una fecha en formato ISO 8601 UTC.
- *
- * Se suma a la fecha inicial el tiempo que lleva encendida
- * la ESP32 utilizando millis().
- */
+// Esta función genera la fecha y hora actual en formato ISO 8601.
+// Ejemplo del resultado:
+// 2026-11-10T17:25:30Z
+//
+// La letra Z del final indica que la hora está expresada en UTC.
 String createTimestamp()
 {
-    /*
-     * millis() devuelve los milisegundos transcurridos desde
-     * que comenzó el programa.
-     *
-     * Dividimos entre 1000 para obtener segundos.
-     */
-    time_t simulatedTime =
-        BASE_TIMESTAMP
-        + static_cast<time_t>(millis() / 1000);
+    // Obtenemos la hora actual que tiene guardada la ESP32.
+    // Esta hora se habrá sincronizado previamente mediante NTP.
+    time_t now = time(nullptr);
 
-    /*
-     * La estructura tm permite separar internamente
-     * año, mes, día, hora, minutos y segundos.
-     */
+    // Comprobamos que la hora sea válida.
+    // Si NTP no ha funcionado o la ESP32 todavía no tiene una fecha correcta,
+    // devolvemos una fecha por defecto para evitar generar datos incorrectos.
+    if (!timeSynchronized || now < 100000)
+    {
+        return "1970-01-01T00:00:00Z";
+    }
+
+    // Creamos una estructura tm.
+    // Esta estructura separa la fecha en partes:
+    // año, mes, día, hora, minutos y segundos.
     struct tm timeInfo;
 
-    /*
-     * gmtime_r convierte el timestamp a UTC.
-     */
-    gmtime_r(&simulatedTime, &timeInfo);
+    // Convertimos la hora actual a UTC.
+    // gmtime_r toma el valor de "now" y guarda el resultado en "timeInfo".
+    gmtime_r(&now, &timeInfo);
 
-    /*
-     * Reservamos espacio para almacenar la fecha como texto.
-     */
-    char timestampBuffer[25];
+    // Creamos un espacio de memoria donde guardaremos
+    // el timestamp convertido a texto.
+    char timestamp[25];
 
-    /*
-     * Creamos el formato:
-     *
-     * YYYY-MM-DDTHH:MM:SSZ
-     */
+    // Convertimos la fecha de timeInfo a texto.
+    //
+    // El formato utilizado es:
+    // %Y = año con 4 cifras
+    // %m = mes
+    // %d = día
+    // %H = hora
+    // %M = minutos
+    // %S = segundos
+    //
+    // La T separa la fecha de la hora.
+    // La Z indica que estamos usando UTC.
     strftime(
-        timestampBuffer,
-        sizeof(timestampBuffer),
+        timestamp,
+        sizeof(timestamp),
         "%Y-%m-%dT%H:%M:%SZ",
         &timeInfo
     );
 
-    return String(timestampBuffer);
+    // Convertimos el array de caracteres "timestamp"
+    // a un String de Arduino para poder utilizarlo fácilmente
+    // al construir el JSON de telemetría.
+    return String(timestamp);
 }
 
 
@@ -200,7 +214,18 @@ String createTimestamp()
  * Los nombres y unidades siguen el contrato acordado
  * para el Sprint 2.
  */
-void generateTelemetry()
+
+// Declaramos la función antes de usarla dentro de generateTelemetry().
+void sendTelemetry(
+    String timestamp,
+    float consumptionPowerKw,
+    float solarProductionPowerKw,
+    float batteryLevelPercent,
+    float batteryPowerKw,
+    float gridPowerKw
+);
+
+ void generateTelemetry()
 {
     /* -----------------------------------------------------
        CONSUMO DE LA VIVIENDA
@@ -441,8 +466,149 @@ void generateTelemetry()
      * en el monitor serie.
      */
     Serial.println();
+
+    // Enviamos al Backend exactamente la misma medición
+    // que acabamos de generar y mostrar por el monitor serie.
+    sendTelemetry(
+        timestamp,
+        consumptionPowerKw,
+        solarProductionPowerKw,
+        batteryLevelPercent,
+        batteryPowerKw,
+        gridPowerKw
+);
 }
 
+// Envía una medición energética al Backend ASP.NET Core.
+// Recibe los mismos datos que ya genera el simulador
+void sendTelemetry(
+    String timestamp,
+    float consumptionPowerKw,
+    float solarProductionPowerKw,
+    float batteryLevelPercent,
+    float batteryPowerKw,
+    float gridPowerKw
+) {
+    // Si no hay conexión Wi-Fi, no intentamos hacer la petición.
+    // El simulador podrá seguir funcionando normalmente.
+    if (WiFi.status() != WL_CONNECTED)
+    {
+        Serial.println("No hay Wi-Fi. No se envia la telemetria.");
+        return;
+    }
+    // Creamos el cliente HTTP que realizará la petición al Backend.
+    HTTPClient http;
+
+    // Indicamos la URL del endpoint guardada en secrets.h.
+    http.begin(BACKEND_URL);
+
+    // Indicamos que vamos a enviar datos en formato JSON.
+    http.addHeader("Content-Type", "application/json");
+
+    // Construimos el JSON utilizando los mismos campos
+    // definidos en el contrato del Sprint 2.
+    String json = "{";
+
+    json += "\"homeId\":\"home-01\",";
+    json += "\"deviceId\":\"esp32-01\",";
+    json += "\"timestamp\":\"" + timestamp + "\",";
+
+    json += "\"consumptionPowerKw\":";
+    json += String(consumptionPowerKw, 2);
+    json += ",";
+
+    json += "\"solarProductionPowerKw\":";
+    json += String(solarProductionPowerKw, 2);
+    json += ",";
+
+    json += "\"batteryLevelPercent\":";
+    json += String(batteryLevelPercent, 2);
+    json += ",";
+
+    json += "\"batteryPowerKw\":";
+    json += String(batteryPowerKw, 2);
+    json += ",";
+
+    json += "\"gridPowerKw\":";
+    json += String(gridPowerKw, 2);
+
+    json += "}";
+
+    // Mostramos qué vamos a enviar para poder comprobarlo.
+    Serial.println("Enviando telemetria al Backend:");
+    Serial.println(json);
+
+    // Realizamos la petición POST.
+    int httpResponseCode = http.POST(json);
+
+    // Si el código es mayor que 0 significa que
+    // hemos recibido una respuesta HTTP del servidor.
+    if (httpResponseCode > 0) {
+
+        Serial.print("Codigo HTTP recibido: ");
+        Serial.println(httpResponseCode);
+
+        // Leemos la respuesta que devuelve ASP.NET Core.
+        String response = http.getString();
+
+        Serial.println("Respuesta del Backend:");
+        Serial.println(response);
+
+    } else {
+
+        // Si falla la petición mostramos el error,
+        // pero no detenemos el simulador.
+        Serial.print("Error enviando telemetria. Codigo: ");
+        Serial.println(httpResponseCode);
+    }
+
+    // Cerramos la conexión HTTP para liberar recursos.
+    http.end();
+}
+
+    // Intenta obtener la fecha y hora real mediante un servidor NTP.
+    // NTP permite que la ESP32 sincronice su reloj utilizando Internet.
+    void synchronizeTime() 
+    {
+        Serial.println("Sincronizando hora mediante NTP...");
+
+        // Configuramos la zona horaria en UTC
+        configTime(
+            0,              // Diferencia respecto a UTC
+            0,              // Horario de verano
+            "pool.ntp.org", // Servidor NTP principal
+            "time.nist.gov" // Servidor NTP alternativo
+        );
+
+        // Guardamos cuando empieza el intento para evitar
+        // quedarnos esperando indefinidamente.
+        unsigned long startTime = millis();
+
+        // Esperamos como máximo 10 segundos.
+        while(time(nullptr) < 100000 && 
+                millis() - startTime < 10000) 
+        {
+            delay(500);
+            Serial.print(".");
+        }
+
+        Serial.println();
+
+        // Comprobamos si hemos recibido una fecha válida.
+        if(time(nullptr) >= 100000) 
+        {
+            timeSynchronized = true;
+            Serial.println("Hora sincronizada correctamente.");
+            
+        } 
+        else 
+        {
+            timeSynchronized = false;
+            Serial.println("No se pudo sincronizar la hora.");
+            Serial.println("El simulador continuará funcionando.");
+        }
+
+    }
 
 /* =========================================================
    SETUP
@@ -494,6 +660,9 @@ void setup()
         // Mostramos la IP asignada por el router.
         Serial.print("Dirección IP: ");
         Serial.println(WiFi.localIP());
+
+        // Una vez tenemos internet, sincronizamos la fecha y la hora
+        synchronizeTime();
     }
     else
     {

@@ -266,6 +266,69 @@ Actualmente se genera una nueva medición aproximadamente cada 5 segundos.
 
 El programa utiliza `millis()` para controlar el intervalo de generación sin utilizar un bloqueo permanente del bucle principal.
 
+## Sincronización de fecha y hora mediante NTP
+
+La ESP32 sincroniza su reloj mediante NTP después de conectarse correctamente a Internet.
+
+NTP permite obtener la fecha y hora real desde servidores de tiempo disponibles en Internet.
+
+Se utiliza porque las mediciones energéticas necesitan incluir un `timestamp` real y coherente con el contrato de datos del proyecto.
+
+Los timestamps se generan en UTC utilizando formato ISO 8601:
+
+```text
+2026-11-10T17:49:45Z
+```
+
+Si no se puede realizar la sincronización NTP, el programa informa del problema sin bloquear permanentemente la ejecución del simulador.
+
+## Envío de telemetría al Backend
+
+Cuando existe conexión Wi-Fi, la ESP32 envía cada medición al Backend ASP.NET Core mediante:
+
+```text
+POST /api/telemetry
+```
+
+La comunicación utiliza HTTP y el contenido se envía como:
+
+```text
+Content-Type: application/json
+```
+
+El JSON enviado utiliza exactamente los campos definidos en el contrato común del Sprint 2.
+
+La dirección concreta del Backend se configura localmente y no se almacena junto con las credenciales Wi-Fi públicas del repositorio.
+
+Durante las pruebas de integración se comprobó el siguiente flujo:
+
+```text
+ESP32 física
+    ↓
+Wi-Fi
+    ↓
+POST /api/telemetry
+    ↓
+ASP.NET Core
+    ↓
+201 Created
+```
+
+El Backend recibe los datos generados por la ESP32 y añade los campos que son responsabilidad del servidor:
+
+- `electricityPriceEurKwh`
+- `systemMode`
+
+También se verificó posteriormente la medición mediante:
+
+```text
+GET /api/energy/current
+```
+
+El Backend devolvió correctamente la última medición enviada por la ESP32.
+
+Si el Backend no responde o se pierde la conexión, el fallo de comunicación no debe detener permanentemente el simulador.
+
 ## Pruebas realizadas
 
 Hasta el momento se han realizado las siguientes pruebas:
@@ -298,11 +361,8 @@ Implementado:
 - ejecución en ESP32 física;
 - conexión Wi-Fi;
 - gestión básica de errores Wi-Fi.
-
-Pendiente:
-
-- envío mediante `POST /api/telemetry`;
-- integración con el Backend ASP.NET Core;
-- comprobación del flujo ESP32 → Backend;
-- pruebas finales de integración;
-- Pull Request y revisión formal.
+- sincronización de hora real mediante NTP;
+- envío HTTP mediante POST /api/telemetry;
+- integración con Backend ASP.NET Core;
+- respuesta HTTP 201 Created;
+- comprobación mediante GET /api/energy/current.

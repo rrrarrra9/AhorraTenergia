@@ -1,0 +1,25 @@
+
+/*
+ * index.css
+ *
+ * Estilos generales de AhorraTenergia.
+ * Eliminamos las reglas de ejemplo de Vite.
+ */
+
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f4f6f4;
+}

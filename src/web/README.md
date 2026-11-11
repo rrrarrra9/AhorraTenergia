@@ -179,42 +179,63 @@ Este selector no se muestra en la compilación de producción.
 
 ## 10. Integración con ASP.NET Core
 
-El dashboard utiliza un servicio independiente para obtener
-los datos energéticos.
+El dashboard React está preparado para obtener información energética desde el backend ASP.NET Core.
 
-La arquitectura acordada es:
+La arquitectura utilizada es:
 
-React -> ASP.NET Core
+React → ASP.NET Core
 
-React no se conecta directamente con Supabase ni con ESP32.
+React no accede directamente a Supabase ni a ESP32.
 
-Los endpoints previstos son:
+### Endpoints comprobados
 
-GET /api/energy/current
+Se han realizado pruebas locales satisfactorias con los siguientes endpoints:
 
-GET /api/energy/history?limit=20
+- `GET /api/health`
+- `GET /api/energy/current`
+- `GET /api/energy/history?limit=20`
 
-Por defecto, la aplicación utiliza datos simulados.
+La integración inicial se ha comprobado visualmente en el dashboard, utilizando los datos simulados que proporciona el backend.
 
-Cuando el backend esté preparado se podrá configurar
-el servicio mediante variables de entorno de Vite:
+### Configuración
 
-- VITE_ENERGY_SOURCE=api
-- VITE_API_BASE_URL=direccion_del_backend
+La aplicación admite dos modos:
 
-La dirección real y el puerto deben confirmarse con Raúl.
+- `mock`: utiliza los datos simulados del frontend.
+- `api`: consulta el backend ASP.NET Core.
 
-La integración real deberá comprobarse antes de darla
-por completada.
+Las variables de entorno son:
+
+- `VITE_ENERGY_SOURCE`
+- `VITE_API_BASE_URL`
+
+El archivo `.env.example` contiene un ejemplo de configuración.
+
+Para utilizar el backend local con el proxy de Vite, se puede configurar `.env.local` con:
+
+```env
+VITE_ENERGY_SOURCE=api
+VITE_API_BASE_URL=
+```
+
+El proxy de `vite.config.js` envía las peticiones `/api` al backend local configurado en `http://localhost:5052`.
+
+Este puerto corresponde al entorno de pruebas utilizado y puede variar en otros equipos.
+
+### Pruebas realizadas
+
+- `npm run lint`: correcto.
+- `npm run build`: correcto.
+- Consulta de datos energéticos actuales: correcta.
+- Consulta del histórico energético: correcta.
+- Visualización de datos del backend en React: correcta.
 
 ## 11. Trabajo pendiente
 
-- Confirmar los endpoints operativos del backend.
-- Configurar la dirección de ASP.NET Core.
-- Validar las respuestas reales del contrato JSON.
-- Comprobar la integración completa.
-- Realizar las pruebas finales.
-- Solicitar revisión formal mediante Pull Request.
+- Revisar y obtener aprobación formal de la Pull Request #42.
+- Verificar la integración completa con la telemetría de ESP32.
+- Comprobar posteriormente la persistencia de datos con Supabase.
+- Realizar las pruebas adicionales que solicite el equipo.
 
 ## 12. GitHub
 

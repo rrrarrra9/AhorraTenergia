@@ -1,4 +1,6 @@
+% Compilar con XeLaTeX
 \documentclass[11pt,a4paper,oneside]{report}
+
 \usepackage[spanish,es-noquoting]{babel}
 \usepackage{fontspec}
 \setmainfont{Lato}
@@ -8,6 +10,7 @@
 \usepackage{booktabs,longtable,array,tabularx}
 \usepackage{enumitem}
 \usepackage{xcolor}
+\usepackage{xurl}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
 \usepackage{titlesec}
@@ -16,346 +19,944 @@
 \usepackage{ragged2e}
 \usepackage{lastpage}
 \usepackage{caption}
+
 \definecolor{forest}{HTML}{184C3F}
 \definecolor{mint}{HTML}{E9F2EE}
 \definecolor{ink}{HTML}{243139}
 \definecolor{muted}{HTML}{5E6C70}
 \definecolor{line}{HTML}{CAD7D2}
-\hypersetup{colorlinks=true,linkcolor=forest,urlcolor=forest,pdftitle={AhorraTenergia - Sprint 1},pdfauthor={Equipo AhorraTenergia}}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=forest,
+  urlcolor=forest,
+  pdftitle={AhorraTenergia - Memoria del proyecto},
+  pdfauthor={Equipo AhorraTenergia}
+}
+
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt}
 \renewcommand{\arraystretch}{1.23}
 \setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.6em}
 \setlist[enumerate]{topsep=4pt,itemsep=3pt,leftmargin=1.7em}
-\titleformat{\chapter}[display]{\sffamily\bfseries\color{forest}}{\small CAPÍTULO \thechapter}{6pt}{\Huge}
+
+\titleformat{\chapter}[display]
+{\sffamily\bfseries\color{forest}}
+{\small CAPÍTULO \thechapter}{6pt}{\Huge}
 \titlespacing*{\chapter}{0pt}{-5pt}{22pt}
-\titleformat{\section}{\sffamily\bfseries\large\color{forest}}{\thesection}{9pt}{}
-\titleformat{\subsection}{\sffamily\bfseries\normalsize\color{ink}}{\thesubsection}{8pt}{}
+
+\titleformat{\section}
+{\sffamily\bfseries\large\color{forest}}
+{\thesection}{9pt}{}
+
+\titleformat{\subsection}
+{\sffamily\bfseries\normalsize\color{ink}}
+{\thesubsection}{8pt}{}
+
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\sffamily AhorraTenergia}
-\fancyhead[R]{\small\sffamily Sprint 01 · 2026}
-\fancyfoot[C]{\small\sffamily\thepage\ / \pageref{LastPage}}
+\fancyhead[R]{\small\sffamily Memoria del proyecto · 2026}
+\fancyfoot[C]{\small\sffamily\thepage}
 \renewcommand{\headrulewidth}{0.25pt}
+
 \newcommand{\src}[2]{\href{#1}{#2}}
 \newcommand{\status}[1]{\textsf{\textbf{#1}}}
-\newcommand{\important}[1]{\par\vspace{5pt}\noindent\colorbox{mint}{\parbox{0.89\linewidth}{\vspace{6pt}\small\RaggedRight\emergencystretch=3em #1\vspace{6pt}}}\vspace{5pt}}
+\newcommand{\important}[1]{%
+  \par\vspace{5pt}\noindent
+  \colorbox{mint}{%
+    \parbox{0.89\linewidth}{%
+      \vspace{6pt}\small\RaggedRight\emergencystretch=3em #1\vspace{6pt}%
+    }%
+  }%
+  \vspace{5pt}%
+}
+
 \begin{document}
+
+% =========================================================
+% PORTADA
+% =========================================================
+
 \begin{titlepage}
 \thispagestyle{empty}
+
 \vspace*{2.0cm}
+
 {\sffamily\color{forest}\Large PROYECTO INTERMODULAR \quad DAM2 · ASIX2 · SIMIX2\par}
+
 \vspace{1.1cm}
+
 {\sffamily\bfseries\fontsize{39}{44}\selectfont AhorraTenergia\par}
+
 \vspace{0.4cm}
-{\sffamily\color{muted}\LARGE Sprint 01\par}
+
+{\sffamily\color{muted}\LARGE Memoria del proyecto\par}
+
 \vspace{0.13cm}
-{\sffamily\Large Arranque y planificación inicial\par}
+
+{\sffamily\Large Sprint 1 y Sprint 2\par}
+
 \vspace{0.9cm}
+
 \begin{tikzpicture}
 \fill[forest] (0,0) rectangle (11.8,0.13);
 \end{tikzpicture}
+
 \vspace{0.8cm}
-{\large Una solución para visualizar y simular la gestión energética doméstica, relacionando producción solar, consumo, batería y precio de la electricidad.\par}
+
+{\large
+Prototipo de gestión energética doméstica basado en la simulación de consumo,
+producción solar, batería y red eléctrica, integrando ESP32, ASP.NET Core y React.
+\par}
+
 \vfill
+
 {\sffamily\bfseries Integrantes\par}
 Raúl Sánchez Ortiz · Hebert Alberto Calderon Torres · Noa Abril Casas\par
+
 \vspace{0.3cm}
-{\sffamily\bfseries Periodo del sprint\par}
-6 al 20 de octubre de 2026\par
+
+{\sffamily\bfseries Periodo de los Sprints\par}
+Sprint 1: 6--20 de octubre de 2026 · Sprint 2: entrega 12 de noviembre de 2026\par
+
 \vspace{0.3cm}
+
 {\sffamily\bfseries Repositorio\par}
 \url{https://github.com/rrrarrra9/AhorraTenergia}\par
+
 \vspace{0.55cm}
-{\small\color{muted}Edición consolidada: 19 de octubre de 2026. Las reuniones de cierre previstas para el 20/10 no se describen como celebradas.}\par
+
+{\small\color{muted}
+Edición consolidada para el cierre del Sprint 2, actualizada el 11/11/2026. Incluye el arranque del proyecto,
+el cierre real del Sprint 1 y el primer incremento funcional integrado del MVP.
+\par}
+
 \end{titlepage}
+
 \pagenumbering{roman}
 \tableofcontents
 \clearpage
-\chapter*{Presentación}\addcontentsline{toc}{chapter}{Presentación}
-AhorraTenergia es un proyecto intermodular orientado a demostrar, mediante un prototipo, cómo se relacionan la producción fotovoltaica, el consumo doméstico, el estado de una batería y el precio de la electricidad. La primera versión utiliza datos simulados y no acciona físicamente una instalación eléctrica real.
 
-Este documento consolida la planificación inicial, la arquitectura prevista, el backlog, la metodología de trabajo y las evidencias recogidas en GitHub durante el Sprint 1. Distingue expresamente entre \emph{resultados verificados}, \emph{trabajo planificado} y \emph{ceremonias todavía pendientes}. Esta distinción es esencial para que la memoria pueda contrastarse con el repositorio.
+% =========================================================
+% PRESENTACIÓN
+% =========================================================
 
-\important{\textbf{Estado de corte (19/10/2026):} 8 de los 9 Issues asociados al milestone Sprint 1 figuran cerrados; el Issue \#12 sigue abierto con 14 de 16 casillas completadas. Sus dos tareas restantes corresponden a registrar, una vez realizadas, la Sprint Review y la Retrospectiva del 20/10.}
+\chapter*{Presentación}
+\addcontentsline{toc}{chapter}{Presentación}
+
+AhorraTenergia es un proyecto intermodular orientado al desarrollo de un prototipo de gestión energética doméstica. El sistema representa mediante datos simulados la relación entre consumo eléctrico, producción solar, batería, red eléctrica y precio de la electricidad. El objetivo no es actuar físicamente sobre una instalación eléctrica real, sino construir una arquitectura de software y electrónica que permita visualizar, validar y analizar ese comportamiento de forma segura.
+
+Durante el Sprint 1 se establecieron la organización del equipo, el repositorio, el backlog, el tablero de trabajo, la arquitectura inicial y la primera versión de la memoria. El Sprint 1 finalizó posteriormente con su Sprint Review y Retrospectiva documentadas.
+
+Durante el Sprint 2 se construyó el primer incremento funcional del proyecto. Se definió un contrato de datos común, se implementó una API ASP.NET Core, se desarrolló la telemetría simulada con ESP32 y se implementó un dashboard React conectado al Backend.
+
+\important{\textbf{Estado consolidado a 11/11/2026:} el flujo demostrado durante el Sprint 2 es \texttt{ESP32 → ASP.NET Core → React}. La persistencia mediante Supabase PostgreSQL, prevista inicialmente en el flujo completo, se ha trasladado al siguiente Sprint mediante el Issue \#15. La visualización de \texttt{timestamp} como ``Última actualización'' en React se ha trasladado mediante el Issue \#43.}
+
 \clearpage
 \pagenumbering{arabic}
+
+% =========================================================
+% CAPÍTULO 1
+% =========================================================
+
 \chapter{Introducción, problema y objetivos}
+
 \section{Introducción}
-AhorraTenergia es un proyecto intermodular orientado al desarrollo de un prototipo de gestión energética doméstica. Su propósito es reunir información sobre consumo eléctrico, producción solar, batería y precio de la electricidad en una solución que permita visualizar y simular decisiones de gestión. La primera versión utilizará datos simulados y no actuará sobre instalaciones reales.
+
+AhorraTenergia busca representar de forma comprensible el comportamiento energético de una vivienda que dispone de consumo eléctrico, producción fotovoltaica, batería y conexión a la red. El proyecto se desarrolla como prototipo educativo y utiliza datos simulados para evitar cualquier actuación sobre instalaciones eléctricas reales.
+
+La solución combina una placa ESP32, un Backend ASP.NET Core, un dashboard React y una base de datos Supabase prevista para la persistencia. El Backend actúa como componente central de comunicación y validación.
+
 \section{Problema o necesidad detectada}
-En una vivienda con paneles solares, batería y conexión a la red, la producción y el consumo cambian durante el día. También varía el precio de la electricidad. Sin una vista conjunta resulta difícil comprender cuándo se consume energía solar, cuándo se recurre a la red y qué efecto podrían tener determinadas reglas de gestión. El prototipo permite estudiar estas relaciones sin ejecutar maniobras eléctricas reales.
+
+En una vivienda con autoconsumo solar, batería y conexión a la red, el origen y destino de la energía cambian a lo largo del día. La producción fotovoltaica puede ser superior o inferior al consumo, la batería puede cargarse o descargarse y la vivienda puede importar o exportar energía a la red.
+
+Además, el precio de la electricidad puede influir en futuras decisiones automáticas. Sin una vista conjunta de estas variables resulta difícil comprender el estado energético de la vivienda y estudiar reglas de gestión.
+
 \section{Usuario objetivo}
-El usuario principal es una persona que quiere entender mejor el consumo de su vivienda, especialmente si dispone de autoconsumo fotovoltaico y eventualmente de batería. Como uso secundario, el proyecto demuestra la integración entre software, datos y electrónica en un entorno educativo.
+
+El usuario principal es una persona que quiere comprender mejor el consumo energético de una vivienda, especialmente si dispone de paneles solares y batería. El proyecto también tiene un objetivo académico: demostrar la integración entre desarrollo web, Backend, bases de datos y electrónica programable.
+
 \section{Propuesta de valor}
-Centralizar las variables energéticas principales y simular cómo el precio, la producción y el nivel de batería intervienen en decisiones de gestión comprensibles para el usuario.
+
+AhorraTenergia centraliza las variables energéticas principales y permite representar de forma visual el estado de una vivienda. La arquitectura está diseñada para evolucionar posteriormente hacia persistencia histórica, reglas automáticas, precios reales, autenticación y otros componentes del producto final.
+
 \section{Objetivo general}
-Diseñar, desarrollar y demostrar un prototipo que visualice y simule la relación entre producción solar, consumo, batería y red eléctrica, incorporando el precio de la electricidad y centralizando la lógica de decisión en un backend.
+
+Diseñar, desarrollar y demostrar un prototipo capaz de recibir telemetría energética simulada, validarla, consultarla mediante una API y representarla en un dashboard, manteniendo una arquitectura preparada para incorporar persistencia y reglas de gestión en iteraciones posteriores.
+
 \section{Objetivos específicos}
+
 \begin{enumerate}
-\item Definir una arquitectura que integre ASP.NET Core, React, Android Java, Supabase y ESP32.
-\item Generar o recibir datos simulados de producción, consumo y batería.
-\item Diseñar una API para recibir, validar y consultar información.
-\item Almacenar medidas y un histórico de decisiones.
-\item Proponer reglas simuladas de decisión basadas en precio y batería.
-\item Diseñar interfaces web y móvil para visualizar el estado del sistema.
-\item Comprobar el intercambio de datos y órdenes simuladas con ESP32.
-\item Planificar pruebas de coherencia, comunicación y documentación.
+\item Definir una arquitectura común para ESP32, ASP.NET Core, React y Supabase.
+\item Establecer un contrato de datos único con nombres, unidades y formatos compartidos.
+\item Generar telemetría energética simulada desde una ESP32.
+\item Implementar una API REST para recibir, validar y consultar mediciones.
+\item Representar el estado energético actual en un dashboard React.
+\item Representar un histórico básico de consumo y producción solar.
+\item Preparar el modelo de datos para su futura persistencia en Supabase PostgreSQL.
+\item Mantener trazabilidad mediante Issues, ramas, commits, Pull Requests y documentación.
+\item Evitar la exposición de credenciales, tokens, claves privadas o datos personales reales.
 \end{enumerate}
-\section{Objetivo y alcance del Sprint 1}
-Poner en marcha el proyecto: repositorio operativo, organización del equipo, backlog visible, arquitectura inicial y capítulo 1 de la memoria LaTeX. No se exige implementar todas las funcionalidades del MVP durante este sprint. Los resultados deben acreditarse mediante Issues, commits, Pull Requests, actas, capturas y documentos.
+
+\section{Alcance del Sprint 1}
+
+El Sprint 1 se centró en el arranque y planificación inicial del proyecto. Sus objetivos fueron establecer el repositorio, la organización del equipo, el backlog, el tablero Kanban, la arquitectura inicial, el diseño preliminar del dashboard y la primera versión de la memoria técnica.
+
+\section{Alcance del Sprint 2}
+
+El Sprint 2 tuvo como objetivo construir el primer incremento funcional integrado. El objetivo inicial contemplaba el flujo:
+
+\begin{center}
+\texttt{ESP32 → ASP.NET Core → Supabase → ASP.NET Core → React}
+\end{center}
+
+Durante el desarrollo se decidió aplazar la persistencia en Supabase al siguiente Sprint. Por tanto, el flujo efectivamente demostrado fue:
+
+\begin{center}
+\texttt{ESP32 → ASP.NET Core → React}
+\end{center}
+
+El Backend almacena temporalmente las mediciones en memoria. Esta decisión permite cerrar un incremento funcional verificable sin presentar como terminada una integración que todavía no se ha implementado.
+
+% =========================================================
+% CAPÍTULO 2
+% =========================================================
 
 \chapter{Gestión del proyecto con GitHub}
+
 \section{Repositorio y estructura}
-El repositorio de referencia es \url{https://github.com/rrrarrra9/AhorraTenergia}. GitHub se utiliza para documentar el proyecto, registrar tareas, gestionar contribuciones y revisar los cambios relevantes.
+
+El repositorio de referencia es:
+
+\url{https://github.com/rrrarrra9/AhorraTenergia}
+
+GitHub se utiliza para registrar tareas, gestionar ramas, versionar código, revisar Pull Requests y conservar las evidencias de cada Sprint.
+
 \begin{verbatim}
 AhorraTenergia/
   docs/
-    memoria/       actas/       adr/
+    memoria/
+    actas/
+    retrospectivas/
+    adr/
+    sprint2/
   src/
-    backend/       web/         android/     esp32/
+    backend/
+    web/
+    android/
+    esp32/
   design/
   tests/
   README.md
 \end{verbatim}
-La estructura constituye el diseño de organización del proyecto; algunos directorios y componentes están reservados para los sprints posteriores. Su aparición en este esquema no acredita que estén implementados.
-\section{Flujo de ramas y revisión}
+
+La estructura contiene tanto componentes ya implementados como espacios reservados para trabajo posterior. La existencia de un directorio no implica por sí sola que su funcionalidad esté terminada.
+
+\section{Flujo de trabajo}
+
+El procedimiento acordado para las tareas relevantes es:
+
 \begin{enumerate}
-\item Registrar el trabajo mediante un Issue con descripción, responsable, prioridad y criterios de aceptación.
-\item Crear una rama por tarea, con prefijos como \texttt{feat/}, \texttt{fix/}, \texttt{docs/} o \texttt{design/}.
-\item Realizar commits propios, claros y trazables.
-\item Presentar los cambios relevantes mediante Pull Request, solicitando revisión antes de fusionar.
-\item Integrar en \texttt{main}, actualizar los documentos y mover la tarjeta a su estado real.
+\item Crear o actualizar un Issue con objetivo, responsable y criterios de aceptación.
+\item Crear una rama específica para la tarea.
+\item Realizar commits descriptivos.
+\item Abrir una Pull Request contra \texttt{main}.
+\item Solicitar revisión a otro integrante.
+\item Corregir las observaciones detectadas.
+\item Obtener una aprobación formal \texttt{APPROVED} antes del merge cuando corresponda.
+\item Fusionar los cambios y actualizar el Issue y la documentación.
 \end{enumerate}
-No se deben versionar credenciales, claves privadas ni secretos.
-\section{Roles y Definition of Done}
-\begin{tabularx}{\linewidth}{@{}p{3.2cm}X@{}}\toprule
-\textbf{Integrante} & \textbf{Responsabilidades iniciales}\tabularnewline\midrule
-Raúl & Coordinación del proyecto, seguimiento del tablero y arquitectura compartida.\tabularnewline
-Hebert & Documentación, criterios de aceptación, apoyo a infraestructura y ESP32.\tabularnewline
-Noa & Diseño UI/UX, documentación del dashboard y organización del backlog/Kanban.\tabularnewline\bottomrule\end{tabularx}
-Los tres integrantes participan en la definición e integración de software y datos, y los responsables concretos de cada Issue se consultan en GitHub. Los roles y la Definition of Done están documentados en \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/roles-y-definition-of-done.md}{docs/roles-y-definition-of-done.md}.
 
-Una tarea se considera terminada cuando cumple el objetivo y criterios de aceptación, dispone de evidencias, está documentada, no expone secretos y sigue el procedimiento de revisión e integración acordado, salvo excepción explícita aceptada y registrada.
-\section{Evidencias de commits individuales}
-El equipo ha registrado commits identificables de sus tres miembros. La siguiente selección permite acceder a ejemplos verificables y distinguir los commits de integración de la autoría de los cambios incluidos.
-\begin{longtable}{@{}p{2.1cm}p{2.1cm}p{7.9cm}@{}}\toprule
-\textbf{Integrante} & \textbf{Commit} & \textbf{Descripción/evidencia}\tabularnewline\midrule\endhead
-Noa & \src{https://github.com/rrrarrra9/AhorraTenergia/commit/5c61f26658ee3ca4507c5e63d5122b2a6593a013}{5c61f26} & Reorganización del diseño dentro de \texttt{design/}.\tabularnewline
-Noa & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{8db2395} & Commit de integración de documentación de cierre.\tabularnewline
-Hebert & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{6785f7a} & Plantilla de retrospectiva del Sprint 1.\tabularnewline
-Hebert & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{66c2221} & Plantilla de Sprint Review.\tabularnewline
-Raúl & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{68cfde0} & Integración de la actualización del README.\tabularnewline
-Raúl & \src{https://github.com/rrrarrra9/AhorraTenergia/commits/main}{132db5b} & Integración de la documentación de planificación.\tabularnewline\bottomrule
+\section{Roles del equipo}
+
+\begin{tabularx}{\linewidth}{@{}p{3.2cm}X@{}}
+\toprule
+\textbf{Integrante} & \textbf{Responsabilidades principales durante el proyecto} \\
+\midrule
+Raúl & Backend ASP.NET Core, coordinación técnica y futura integración con Supabase. \\
+Hebert & ESP32, integración, pruebas, documentación y trazabilidad. \\
+Noa & Dashboard React, diseño de interfaz y apoyo a organización/documentación. \\
+\bottomrule
+\end{tabularx}
+
+Los roles no impiden la revisión cruzada. Los tres integrantes participan en las decisiones de arquitectura y en la revisión de entregables.
+
+\section{Definition of Done}
+
+Una tarea se considera terminada cuando cumple su objetivo y sus criterios de aceptación, dispone de evidencias verificables, no contiene secretos, está documentada en un nivel adecuado y sigue el procedimiento de integración acordado. Si existe una desviación de proceso, debe registrarse expresamente.
+
+\section{Pull Requests relevantes}
+
+\begin{longtable}{@{}p{1.4cm}p{5.3cm}p{5.3cm}@{}}
+\toprule
+\textbf{PR} & \textbf{Contenido} & \textbf{Estado / observación} \\
+\midrule
+\endhead
+\#30 & Plantillas de Sprint Review y Retrospectiva del Sprint 1 & Fusionada con aprobación formal registrada. \\
+\#39 & Contrato de datos del Sprint 2 & Fusionada; documento utilizado como referencia común del Sprint. \\
+\#40 & API base ASP.NET Core & Fusionada. La revisión quedó registrada como \texttt{COMMENTED}, no como \texttt{APPROVED}. \\
+\#41 & Telemetría ESP32 e integración con Backend & Fusionada. La revisión quedó registrada como \texttt{COMMENTED}, no como \texttt{APPROVED}. \\
+\#42 & Dashboard React Sprint 2 & Fusionada después de una revisión con cambios solicitados y una aprobación formal final. \\
+\bottomrule
 \end{longtable}
-Los commits de fusión demuestran actividad de integración y no sustituyen la identificación de los autores de los commits de contenido. \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12\#issuecomment-6249761992}{Registro de evidencias en el Issue \#12}.
-\section{Pull Requests: estado de revisión}
-\begin{tabularx}{\linewidth}{@{}p{1.5cm}Xp{3.5cm}@{}}\toprule
-\textbf{PR} & \textbf{Contenido} & \textbf{Estado de revisión}\tabularnewline\midrule
-\src{https://github.com/rrrarrra9/AhorraTenergia/pull/4}{\#4} & Diseño inicial del dashboard & Fusionada; sin aprobación formal registrada.\tabularnewline
-\src{https://github.com/rrrarrra9/AhorraTenergia/pull/7}{\#7} & Roles y Definition of Done & Fusionada; sin aprobación formal registrada.\tabularnewline
-\src{https://github.com/rrrarrra9/AhorraTenergia/pull/27}{\#27} & Organización de archivos de diseño & Fusionada; sin aprobación formal registrada.\tabularnewline
-\src{https://github.com/rrrarrra9/AhorraTenergia/pull/30}{\#30} & Plantillas Review y Retrospectiva & Fusionada; aprobación formal de Raúl.\tabularnewline\bottomrule\end{tabularx}
-La PR \#30 cuenta con revisión \texttt{APPROVED} de Raúl el 17/10/2026, anterior a la fusión del 18/10/2026. El registro detallado figura en \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12\#issuecomment-6249800716}{Issue \#12}.
-\subsection{Excepción de revisión del dashboard}
-Las PR \#4 y \#27 se integraron sin aprobación formal previa registrada. Raúl validó después el diseño y confirmó expresamente la aceptación de una \textbf{excepción puntual} al procedimiento del Sprint 1. La validación posterior no se presenta como aprobación previa. La excepción y la necesidad de mejorar el proceso quedaron documentadas en el \src{https://github.com/rrrarrra9/AhorraTenergia/issues/3\#issuecomment-6253334547}{Issue \#3}; este Issue está cerrado y con 8/8 tareas completadas.
-\section{Colaboradores, profesorado y permisos}
-Los tres integrantes del equipo colaboran en el repositorio y han dejado contribuciones propias. También hay evidencia de que el repositorio y el GitHub Project pueden consultarse públicamente. \textbf{La inclusión del profesorado como colaborador individual, si se exige acceso de escritura, no queda acreditada por la mera visibilidad pública y debe verificarse en Settings/Collaborators y documentarse.}
-\section{README y trazabilidad}
-El \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/README.md}{README.md} es la portada operativa del repositorio. Debe conservar el nombre, la frase de venta, el equipo, los ciclos formativos, el objetivo del repositorio y el estado real del sprint. La comprobación definitiva del README corresponde al cierre del 20/10, cuando se actualicen las actas.
 
-\chapter{Planificación del proyecto}
-\section{Alcance del MVP}
-Se contempla trabajar con datos energéticos simulados, una API y reglas de negocio iniciales, persistencia en Supabase, un dashboard web React, una aplicación Android Java y una integración de prueba con ESP32. Los modos automático y manual se limitarán al entorno simulado. No se prevé actuar sobre sistemas eléctricos reales en esta fase.
-\section{Arquitectura técnica inicial}
-\begin{table}[H]\centering
-\begin{tabularx}{\linewidth}{@{}p{4cm}X@{}}\toprule
-\textbf{Componente} & \textbf{Responsabilidad prevista}\tabularnewline\midrule
-React & Visualizar el dashboard y permitir consultar variables.\tabularnewline
-Android Java & Consulta móvil de información proporcionada por el backend.\tabularnewline
-ASP.NET Core / C\# & API, lógica de decisión, validación y coordinación.\tabularnewline
-Supabase / PostgreSQL & Persistencia de mediciones, estados e histórico.\tabularnewline
-ESP32 / C++ & Simulación de mediciones y de recepción de órdenes.\tabularnewline\bottomrule\end{tabularx}
-\end{table}
-\begin{figure}[H]\centering
-\begin{tikzpicture}[>=stealth, every node/.style={font=\sffamily\small}, box/.style={draw=forest,rounded corners=3pt,thick,fill=mint,text width=3.2cm,align=center,minimum height=1.1cm}]
-\node[box] (web) at (0,3) {Frontend web\\React};
-\node[box] (and) at (7,3) {App Android\\Java};
-\node[box] (api) at (3.5,1.25) {Backend/API\\ASP.NET Core};
-\node[box] (db) at (0,-0.55) {Datos históricos\\Supabase};
-\node[box] (esp) at (7,-0.55) {Medidas simuladas\\ESP32};
-\draw[<->,thick,forest] (web) -- (api);
-\draw[<->,thick,forest] (and) -- (api);
-\draw[<->,thick,forest] (api) -- (db);
-\draw[<->,thick,forest] (api) -- (esp);
+\textbf{Mejora de proceso:} durante el Sprint 2 se detectó que una revisión con comentario no equivale a una aprobación formal. La PR \#42 aplicó correctamente el procedimiento: primero se solicitaron cambios, se corrigieron y después se registró \texttt{APPROVED} antes del merge.
+
+% =========================================================
+% CAPÍTULO 3
+% =========================================================
+
+\chapter{Sprint 1: arranque, planificación y cierre}
+
+\section{Objetivo del Sprint 1}
+
+El Sprint 1 tuvo como finalidad establecer una base organizativa y técnica para el proyecto. Se trabajó principalmente sobre GitHub, documentación, arquitectura, backlog, diseño y metodología.
+
+\section{Entregables principales}
+
+Durante el Sprint 1 se prepararon, entre otros, los siguientes elementos:
+
+\begin{itemize}
+\item estructura inicial del repositorio;
+\item backlog y priorización;
+\item tablero Kanban;
+\item roles y Definition of Done;
+\item arquitectura inicial;
+\item diseño inicial del dashboard;
+\item memoria técnica en LaTeX;
+\item evidencias de commits y Pull Requests;
+\item documentación para Sprint Review y Retrospectiva.
+\end{itemize}
+
+\section{Sprint Review del 20/10/2026}
+
+La Sprint Review se celebró el 20 de octubre de 2026 con la participación de Raúl, Noa y Hebert. Se mostraron el repositorio de GitHub, el GitHub Project, la memoria técnica, la arquitectura inicial y la propuesta gráfica del dashboard.
+
+La principal observación recibida del profesorado se refería a la carpeta \texttt{tests/}. La comprobación posterior indicó que en ese momento contenía únicamente un archivo \texttt{.gitkeep}; por tanto, la existencia de la carpeta por sí sola no demostraba una vulnerabilidad. Posteriormente, en la Retrospectiva, el equipo acordó revisar la organización de las pruebas y evitar que en ellas aparezcan secretos o información sensible.
+
+El acta se encuentra en:
+
+\src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/actas/2026-10-20-sprint-review.md}{docs/actas/2026-10-20-sprint-review.md}
+
+\section{Retrospectiva del Sprint 1}
+
+La Retrospectiva también quedó documentada. El equipo identificó como aspectos positivos la organización del repositorio, la asignación de responsabilidades, el tablero Kanban, la memoria técnica, la arquitectura y el diseño inicial.
+
+Las principales dificultades fueron el uso inicial de GitHub Projects, la falta de aprobación formal en algunas Pull Requests y la actualización tardía de parte de las evidencias.
+
+Como acciones de mejora se acordó:
+
+\begin{itemize}
+\item revisar las Pull Requests antes del merge;
+\item mantener actualizado GitHub Projects;
+\item registrar las evidencias durante el Sprint y no únicamente al final;
+\item revisar la organización de las pruebas y evitar información sensible.
+\end{itemize}
+
+La Retrospectiva se encuentra en:
+
+\src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/retrospectivas/2026-10-20-retrospectiva-sprint1.md}{docs/retrospectivas/2026-10-20-retrospectiva-sprint1.md}
+
+\section{Cierre documental del Sprint 1}
+
+El Issue \#12, dedicado a las evidencias y documentación de cierre, terminó con sus 16 tareas completadas y quedó cerrado. De este modo, la Review y la Retrospectiva dejaron de ser pendientes y pasaron a formar parte de las evidencias reales del proyecto.
+
+% =========================================================
+% CAPÍTULO 4
+% =========================================================
+
+\chapter{Sprint 2: planificación y contrato técnico}
+
+\section{Objetivo inicial}
+
+El Sprint 2 se planteó como el primer incremento funcional del MVP. El objetivo era demostrar que los principales componentes podían intercambiar, almacenar y representar información energética coherente.
+
+El flujo inicialmente previsto fue:
+
+\begin{center}
+\texttt{ESP32 → ASP.NET Core → Supabase → ASP.NET Core → React}
+\end{center}
+
+La planificación quedó registrada en el Issue \#34.
+
+\section{Contrato común de datos}
+
+Antes de integrar los componentes se definió un contrato común mediante el Issue \#38 y el documento:
+
+\src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/sprint2/contrato-datos.md}{docs/sprint2/contrato-datos.md}
+
+El objetivo era evitar diferencias de nombres, unidades y estructuras entre ESP32, Backend y React.
+
+\section{Convenciones}
+
+\begin{tabularx}{\linewidth}{@{}p{4.2cm}X@{}}
+\toprule
+\textbf{Elemento} & \textbf{Convención} \\
+\midrule
+JSON & \texttt{camelCase} \\
+C\# & \texttt{PascalCase} \\
+PostgreSQL / Supabase & \texttt{snake\_case} \\
+Potencias instantáneas & kW \\
+Nivel de batería & \% \\
+Precio eléctrico & €/kWh \\
+Fecha y hora & UTC, ISO 8601 \\
+\bottomrule
+\end{tabularx}
+
+\section{Datos generados por ESP32}
+
+La ESP32 genera los siguientes campos:
+
+\begin{itemize}
+\item \texttt{homeId};
+\item \texttt{deviceId};
+\item \texttt{timestamp};
+\item \texttt{consumptionPowerKw};
+\item \texttt{solarProductionPowerKw};
+\item \texttt{batteryLevelPercent};
+\item \texttt{batteryPowerKw};
+\item \texttt{gridPowerKw}.
+\end{itemize}
+
+Los identificadores utilizados durante las pruebas son:
+
+\begin{verbatim}
+homeId   = "home-01"
+deviceId = "esp32-01"
+\end{verbatim}
+
+\section{Datos gestionados por el Backend}
+
+El Backend incorpora dos valores que no son enviados por la ESP32:
+
+\begin{itemize}
+\item \texttt{electricityPriceEurKwh};
+\item \texttt{systemMode}.
+\end{itemize}
+
+En el incremento actual se utiliza un precio simulado de \texttt{0.18} €/kWh y el modo \texttt{automatic}.
+
+\section{Ejemplo de telemetría ESP32 → Backend}
+
+\begin{verbatim}
+{
+  "homeId": "home-01",
+  "deviceId": "esp32-01",
+  "timestamp": "2026-11-05T16:30:00Z",
+  "consumptionPowerKw": 2.35,
+  "solarProductionPowerKw": 1.80,
+  "batteryLevelPercent": 68,
+  "batteryPowerKw": 0.40,
+  "gridPowerKw": 0.15
+}
+\end{verbatim}
+
+\section{Interpretación de batería y red}
+
+Para \texttt{batteryPowerKw}:
+
+\begin{itemize}
+\item valor positivo: la batería entrega energía;
+\item valor negativo: la batería se carga;
+\item cero: sin intercambio.
+\end{itemize}
+
+Para \texttt{gridPowerKw}:
+
+\begin{itemize}
+\item valor positivo: importación desde la red;
+\item valor negativo: exportación hacia la red;
+\item cero: sin intercambio.
+\end{itemize}
+
+\section{API mínima acordada}
+
+El contrato definió cuatro endpoints:
+
+\begin{tabularx}{\linewidth}{@{}p{6.0cm}X@{}}
+\toprule
+\textbf{Endpoint} & \textbf{Responsabilidad} \\
+\midrule
+\texttt{POST} \path{/api/telemetry} & Recibir y validar una medición de la ESP32. \\
+\texttt{GET} \path{/api/energy/current} & Devolver la última medición disponible. \\
+\texttt{GET /api/energy/history}\newline\texttt{?limit=20} & Devolver un histórico limitado de mediciones. \\
+\texttt{GET} \path{/api/health} & Comprobar que el Backend está operativo. \\
+\bottomrule
+\end{tabularx}
+
+\section{Modelo de datos previsto para Supabase}
+
+El modelo mínimo definido para la futura persistencia utiliza tres entidades:
+
+\begin{itemize}
+\item \texttt{homes};
+\item \texttt{devices};
+\item \texttt{energy\_measurements}.
+\end{itemize}
+
+Las relaciones previstas son:
+
+\begin{center}
+\texttt{homes 1:N devices}\par
+\texttt{devices 1:N energy\_measurements}
+\end{center}
+
+Este modelo fue definido durante el Sprint 2, pero su implementación real en Supabase se ha aplazado al siguiente Sprint.
+
+% =========================================================
+% CAPÍTULO 5
+% =========================================================
+
+\chapter{Implementación del Sprint 2}
+
+\section{Backend ASP.NET Core}
+
+El Backend se encuentra en:
+
+\begin{verbatim}
+src/backend/AhorraTenergia.Api/
+\end{verbatim}
+
+La API se desarrolló con ASP.NET Core y expone los cuatro endpoints acordados.
+
+\subsection{Modelo de datos}
+
+La clase \texttt{Datos} incluye las propiedades recibidas desde la ESP32 y las propiedades internas gestionadas por el Backend.
+
+\subsection{Almacenamiento temporal}
+
+Las mediciones se almacenan actualmente en una lista en memoria. Se incluyeron mediciones simuladas iniciales para permitir pruebas del estado actual y del histórico.
+
+Este almacenamiento es deliberadamente temporal. No se presenta como sustituto definitivo de Supabase.
+
+\subsection{Validaciones de telemetría}
+
+El endpoint \texttt{POST /api/telemetry} comprueba, entre otros aspectos:
+
+\begin{itemize}
+\item que el cuerpo sea un objeto JSON;
+\item que existan los campos requeridos;
+\item que \texttt{homeId} y \texttt{deviceId} sean válidos;
+\item que el \texttt{timestamp} sea interpretable y esté expresado en UTC;
+\item que consumo y producción solar no sean negativos;
+\item que el nivel de batería esté entre 0 y 100;
+\item que las potencias sean valores numéricos finitos;
+\item que la ESP32 no intente enviar \texttt{electricityPriceEurKwh} ni \texttt{systemMode}.
+\end{itemize}
+
+Cuando una medición válida se registra, la API devuelve \texttt{201 Created}.
+
+\subsection{Estado actual e histórico}
+
+\texttt{GET /api/energy/current} localiza la medición más reciente por \texttt{timestamp}.
+
+\texttt{GET /api/energy/history?limit=20} ordena las mediciones y devuelve las últimas entradas según el límite solicitado. Un límite inválido devuelve \texttt{400 Bad Request}.
+
+\subsection{Estado del servicio}
+
+\texttt{GET /api/health} devuelve una respuesta mínima con estado \texttt{ok}, permitiendo comprobar que el servicio está operativo.
+
+\section{ESP32 y C++}
+
+La parte de ESP32 se encuentra en:
+
+\begin{verbatim}
+src/esp32/
+\end{verbatim}
+
+Se utilizó PlatformIO con Arduino Framework. La telemetría se genera de forma periódica y respeta los nombres y unidades definidos en el contrato común.
+
+\subsection{Funciones implementadas}
+
+La ESP32:
+
+\begin{itemize}
+\item genera consumo eléctrico simulado;
+\item genera producción solar simulada;
+\item genera nivel y potencia de batería;
+\item genera intercambio con la red;
+\item obtiene una referencia temporal mediante NTP y genera timestamps UTC;
+\item construye el JSON de telemetría;
+\item muestra información de prueba por puerto serie;
+\item envía peticiones HTTP a \texttt{POST /api/telemetry};
+\item gestiona errores básicos de comunicación sin bloquear permanentemente el programa.
+\end{itemize}
+
+\subsection{Pruebas en entorno y placa física}
+
+El desarrollo se comprobó tanto en entorno de simulación como con una ESP32 física. Durante la integración con el Backend se observaron respuestas HTTP \texttt{201}, lo que confirmó que la API aceptaba las mediciones enviadas.
+
+Posteriormente, \texttt{GET /api/energy/current} permitió recuperar la medición más reciente recibida desde la ESP32.
+
+\subsection{Seguridad de configuración}
+
+La configuración local sensible se mantiene fuera del repositorio. El archivo local utilizado para secretos no debe versionarse y está contemplado por las reglas de exclusión del proyecto.
+
+\section{Dashboard React}
+
+El Frontend web se encuentra en:
+
+\begin{verbatim}
+src/web/
+\end{verbatim}
+
+Está desarrollado con React y Vite.
+
+\subsection{Información mostrada}
+
+El dashboard representa:
+
+\begin{itemize}
+\item consumo eléctrico;
+\item producción solar;
+\item nivel de batería;
+\item potencia de batería;
+\item intercambio con la red;
+\item precio eléctrico simulado;
+\item modo del sistema;
+\item histórico de consumo y producción solar.
+\end{itemize}
+
+\subsection{Estados de interfaz}
+
+Se contemplan cuatro estados:
+
+\begin{itemize}
+\item carga;
+\item datos disponibles;
+\item error;
+\item ausencia de datos.
+\end{itemize}
+
+\subsection{Comunicación con la API}
+
+El servicio \texttt{energyService.js} permite trabajar con datos mock o con la API. Para el modo API consulta:
+
+\begin{verbatim}
+/api/energy/current
+/api/energy/history?limit=20
+\end{verbatim}
+
+Vite dispone de un proxy de desarrollo hacia el Backend local. La configuración puede documentarse mediante variables como:
+
+\begin{verbatim}
+VITE_ENERGY_SOURCE
+VITE_API_BASE_URL
+\end{verbatim}
+
+El repositorio incluye un archivo \texttt{.env.example} sin secretos.
+
+\subsection{Pendiente trasladado}
+
+La visualización de \texttt{timestamp} como ``Última actualización'' no quedó incluida en el cierre final de la PR \#42. El equipo decidió no bloquear el cierre del Sprint por este ajuste y creó el Issue \#43 para la siguiente iteración.
+
+% =========================================================
+% CAPÍTULO 6
+% =========================================================
+
+\chapter{Integración, pruebas y resultados}
+
+\section{Flujo integrado demostrado}
+
+El resultado técnico demostrado durante el Sprint 2 es:
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  >=stealth,
+  every node/.style={font=\sffamily\small},
+  box/.style={draw=forest,rounded corners=3pt,thick,fill=mint,text width=3.0cm,align=center,minimum height=1.1cm}
+]
+\node[box] (esp) at (0,0) {ESP32\\Telemetría simulada};
+\node[box] (api) at (5,0) {ASP.NET Core\\API + memoria};
+\node[box] (web) at (10,0) {React\\Dashboard};
+\draw[->,thick,forest] (esp) -- node[above]{\texttt{POST /api/telemetry}} (api);
+\draw[->,thick,forest] (api) -- node[above]{\texttt{GET current/history}} (web);
 \end{tikzpicture}
-\caption{Arquitectura conceptual prevista para el MVP; no acredita conexiones ya implementadas.}
+\caption{Flujo funcional comprobado al cierre del Sprint 2.}
 \end{figure}
-El backend concentra las decisiones; el formato de mensajes, protocolo y frecuencia de actualización están pendientes de definición técnica. Todas las órdenes y medidas ilustran una simulación.
-\section{Ceremonias y calendario}
-\begin{tabularx}{\linewidth}{@{}p{3.5cm}X@{}}\toprule
-\textbf{Reunión/fecha} & \textbf{Propósito y registro}\tabularnewline\midrule
-08/10, 16:45--18:30 & Puesta en común del proyecto; acuerdos en el acta de Planning.\tabularnewline
-13/10, 16:45--18:30 & Revisión de prioridades y estado; documentar avances reales.\tabularnewline
-15/10, 16:45--18:30 & Seguimiento de entregables y revisión de incidencias.\tabularnewline
-19/10, 15:30--16:30 & Preparación prevista de cierre y actualización de evidencias.\tabularnewline
-20/10 & Sprint Review y Retrospectiva previstas; registrar resultados tras celebrarse.\tabularnewline\bottomrule\end{tabularx}
-Estas fechas reflejan la planificación descrita en la memoria original. \textbf{La celebración efectiva, asistentes y acuerdos de cada sesión deben estar acreditados en actas o comentarios; no se infieren por la existencia de un calendario.}
-\section{Milestones y tablero Kanban}
-El \src{https://github.com/users/rrrarrra9/projects/1}{GitHub Project} utiliza las columnas \emph{Backlog, Por hacer, En curso, En revisión y Hecho}. El backlog consta de 17 Issues de trabajo identificados previamente por el equipo, con tareas del Sprint 1 y otras futuras sin incluir en ese milestone.
 
-El \textbf{milestone Sprint 1} agrupa nueve Issues, con el estado siguiente a fecha de corte:\par
-\begin{longtable}{@{}p{1.25cm}p{6.3cm}p{2.35cm}p{1.55cm}@{}}\toprule
-\textbf{Issue} & \textbf{Actividad} & \textbf{Responsable} & \textbf{Estado}\tabularnewline\midrule\endhead
-\#2 & Estructura inicial del repositorio & Hebert & Cerrado\tabularnewline
-\#3 & Diseño inicial del dashboard & Noa & Cerrado\tabularnewline
-\#5 & Sprint 1 -- Planning & Hebert & Cerrado\tabularnewline
-\#6 & Roles y Definition of Done & Hebert & Cerrado\tabularnewline
-\#8 & Capítulo 1 de la memoria técnica & Hebert & Cerrado\tabularnewline
-\#9 & Configuración del tablero Kanban & Noa & Cerrado\tabularnewline
-\#10 & Elaboración y priorización del backlog & Noa & Cerrado\tabularnewline
-\#11 & Arquitectura inicial del sistema & Raúl & Cerrado\tabularnewline
-\#12 & Evidencias y documentación de cierre & Noa & Abierto\tabularnewline\bottomrule\end{longtable}
-\important{\textbf{Seguimiento:} 8 Issues cerrados de 9 del Sprint 1 (88,9\%). El Issue \#12 conserva dos tareas pendientes: registrar la Review y la Retrospectiva una vez celebradas. El porcentaje no equivale a una valoración automática de todos los criterios del profesor.}
-La creación y las fechas exactas del milestone \emph{Sprint 2} deben acreditarse con su enlace o captura. No se considera demostrado por figurar en el plan del proyecto.
-\section{Responsables y áreas}
-Raúl coordina el trabajo y la arquitectura; Noa lidera la propuesta de UI/UX y contribuye al Kanban y backlog; Hebert documenta roles, planificación y memoria, con participación en ESP32. El trabajo de backend, web, datos y Android se plantea como compartido hasta asignar Issues concretos en los próximos sprints.
-\section{Actas y seguimiento semanal}
-El \src{https://github.com/rrrarrra9/AhorraTenergia/issues/5}{Issue \#5 (Planning)} está cerrado con su checklist completo. El repositorio contiene asimismo documentación de actas en \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/actas}{docs/actas}. Para demostrar plenamente el seguimiento semanal se deben conservar, en el Issue o en las actas, \emph{fechas, participantes, avances, dificultades, decisiones y responsables}. Esta memoria no inventa reuniones ni acuerdos no contrastados.
+\section{Pruebas del Backend}
 
-\chapter{Backlog inicial y prioridades}
-\section{Criterio de elaboración}
-La memoria original identifica 25 tareas de referencia, cumpliendo el mínimo de 15 solicitado. Los códigos \texttt{AT-01} a \texttt{AT-25} son identificadores \emph{documentales}: no deben confundirse automáticamente con los números de Issue de GitHub. La trazabilidad debe revisarse cuando se prioricen y subdividan las tareas.
+Se verificó el funcionamiento de:
+
+\begin{itemize}
+\item \texttt{POST /api/telemetry};
+\item \texttt{GET /api/energy/current};
+\item \texttt{GET /api/energy/history?limit=20};
+\item \texttt{GET /api/health}.
+\end{itemize}
+
+También se comprobó que el Backend añade los valores internos de precio y modo y que rechaza mensajes que no cumplen las validaciones básicas.
+
+\section{Pruebas ESP32 → Backend}
+
+Durante las pruebas de integración la ESP32 envió telemetría al Backend y recibió respuestas \texttt{201 Created}. Las mediciones recibidas pudieron consultarse posteriormente mediante el endpoint de estado actual.
+
+Esto permite demostrar que el contrato común fue suficiente para conectar la generación de telemetría con la API.
+
+\section{Pruebas Backend → React}
+
+El dashboard fue probado contra el Backend ASP.NET Core. Se comprobaron las consultas de estado actual e histórico y la representación visual de los datos.
+
+Para el Frontend se ejecutaron además:
+
+\begin{verbatim}
+npm run lint
+npm run build
+\end{verbatim}
+
+La PR \#42 registró estas comprobaciones como correctas antes del cierre.
+
+\section{Resultado frente al objetivo inicial}
+
+El objetivo inicial incluía Supabase. Sin embargo, la integración con PostgreSQL/Supabase no se implementó durante el Sprint 2.
+
+Por tanto, no se afirma que se haya completado el flujo original completo. El resultado real es un incremento parcial pero funcional:
+
+\begin{center}
+\texttt{ESP32 → ASP.NET Core → React}
+\end{center}
+
+La persistencia se mantiene como trabajo pendiente y está registrada en el Issue \#15.
+
+% =========================================================
+% CAPÍTULO 7
+% =========================================================
+
+\chapter[Planificación, seguimiento y cierre del Sprint 2]{Planificación, seguimiento y\\cierre del Sprint 2}
+
+\section{Issues principales}
+
+\begin{longtable}{@{}p{1.4cm}p{6.3cm}p{2.2cm}p{1.6cm}@{}}
+\toprule
+\textbf{Issue} & \textbf{Actividad} & \textbf{Responsable} & \textbf{Estado} \\
+\midrule
+\endhead
+\#38 & Contrato común de datos y arquitectura & Equipo & Cerrado \\
+\#13 & API base ASP.NET Core & Raúl & Cerrado \\
+\#14 & Dashboard React & Noa & Cerrado \\
+\#18 & Telemetría ESP32 e integración & Hebert & Cerrado \\
+\#34 & Planning y cierre del Sprint 2 & Equipo & Cerrado \\
+\bottomrule
+\end{longtable}
+
+Los Issues que finalmente formaron parte del incremento realizado durante el Sprint 2 quedaron cerrados con sus resultados documentados. El Issue \#15, previsto inicialmente para Supabase, se trasladó al siguiente Sprint.
+
+\section{Trabajo trasladado al siguiente Sprint}
+
+\subsection{Issue \#15 — Supabase PostgreSQL}
+
+El Issue \#15 permanece abierto, asignado a Raúl y sin milestone de Sprint 2. Su objetivo es implementar la persistencia energética real en Supabase PostgreSQL, incluyendo tablas, relaciones, scripts SQL, datos de prueba, consultas y acceso seguro desde el Backend.
+
+\subsection{Issue \#43 — Última actualización en React}
+
+El Issue \#43 permanece abierto, asignado a Noa. Su objetivo es recuperar \texttt{timestamp} desde el Backend y mostrarlo en el dashboard como ``Última actualización''.
+
+\section{Desviaciones de proceso}
+
+La PR \#40 del Backend y la PR \#41 de ESP32 fueron fusionadas sin una aprobación formal \texttt{APPROVED} previa. En ambos casos existieron revisiones registradas como \texttt{COMMENTED}.
+
+El equipo decidió no revertir los merges, sino documentar la desviación y aplicar correctamente la regla en las siguientes Pull Requests.
+
+La PR \#42 mostró la mejora de proceso: se realizó una revisión, se solicitaron cambios, se corrigieron y finalmente se registró una aprobación formal antes del merge.
+
+\section{Cierre del Planning}
+
+El Issue \#34 documenta que el resultado real del Sprint fue el flujo \texttt{ESP32 → ASP.NET Core → React}, con Supabase aplazado. Este cierre evita presentar como realizada una parte que todavía no está implementada.
+
+% =========================================================
+% CAPÍTULO 8
+% =========================================================
+
+\chapter{Backlog inicial, metodología y riesgos}
+
+\section{Backlog documental inicial}
+
+La planificación inicial identificó 25 tareas de referencia. Estos códigos son identificadores documentales y no deben confundirse automáticamente con los números de Issue de GitHub.
+
 \small
-\begin{longtable}{@{}p{1.4cm}p{2.5cm}p{7.0cm}p{1.5cm}@{}}\toprule
-\textbf{ID} & \textbf{Área} & \textbf{Resultado esperado} & \textbf{Prioridad}\tabularnewline\midrule\endhead
-AT-01 & Coordinación & Crear y mantener la estructura inicial del repositorio. & Alta\tabularnewline
-AT-02 & Coordinación & Definir convenciones de ramas, commits e Issues. & Alta\tabularnewline
-AT-03 & Documentación & Completar la memoria del Sprint 1. & Alta\tabularnewline
-AT-04 & Documentación & Registrar reuniones y acuerdos confirmados. & Alta\tabularnewline
-AT-05 & Diseño & Preparar propuesta inicial del dashboard. & Alta\tabularnewline
-AT-06 & Diseño & Vincular el diseño al Issue y a evidencias. & Alta\tabularnewline
-AT-07 & Arquitectura & Documentar los componentes y sus relaciones. & Alta\tabularnewline
-AT-08 & Backend & Crear estructura inicial de ASP.NET Core. & Alta\tabularnewline
-AT-09 & Backend & Definir los primeros endpoints de la API. & Alta\tabularnewline
-AT-10 & Backend & Definir modelos de variables energéticas. & Alta\tabularnewline
-AT-11 & Backend & Especificar primera regla de decisión simulada. & Alta\tabularnewline
-AT-12 & Datos & Proponer tablas de Supabase. & Alta\tabularnewline
-AT-13 & Datos & Definir persistencia de medidas y fechas. & Media\tabularnewline
-AT-14 & Web & Crear estructura base de React. & Alta\tabularnewline
-AT-15 & Web & Diseñar componentes principales del dashboard. & Alta\tabularnewline
-AT-16 & Web & Preparar consumo de datos de la API. & Media\tabularnewline
-AT-17 & Android & Crear estructura inicial de app Java. & Media\tabularnewline
-AT-18 & Android & Diseñar vista inicial de consulta del estado. & Media\tabularnewline
-AT-19 & ESP32 & Definir formato de datos simulados. & Alta\tabularnewline
-AT-20 & ESP32 & Preparar intercambio de prueba con backend. & Media\tabularnewline
-AT-21 & Integración & Definir formato de órdenes y respuestas. & Media\tabularnewline
-AT-22 & Pruebas & Definir escenarios de producción, consumo y batería. & Alta\tabularnewline
-AT-23 & Pruebas & Comprobar validación y coherencia de datos. & Media\tabularnewline
-AT-24 & Seguridad & Evitar exposición de credenciales. & Alta\tabularnewline
-AT-25 & Entrega & Revisar el estado del sprint y preparar evidencias. & Alta\tabularnewline\bottomrule
+\begin{longtable}{@{}p{1.4cm}p{2.5cm}p{7.0cm}p{1.5cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Área} & \textbf{Resultado esperado} & \textbf{Prioridad} \\
+\midrule
+\endhead
+AT-01 & Coordinación & Crear y mantener la estructura inicial del repositorio. & Alta \\
+AT-02 & Coordinación & Definir convenciones de ramas, commits e Issues. & Alta \\
+AT-03 & Documentación & Mantener la memoria del proyecto actualizada. & Alta \\
+AT-04 & Documentación & Registrar reuniones y acuerdos confirmados. & Alta \\
+AT-05 & Diseño & Preparar la propuesta inicial del dashboard. & Alta \\
+AT-06 & Diseño & Vincular el diseño al Issue y a evidencias. & Alta \\
+AT-07 & Arquitectura & Documentar componentes y relaciones. & Alta \\
+AT-08 & Backend & Crear la estructura de ASP.NET Core. & Alta \\
+AT-09 & Backend & Definir e implementar endpoints de la API. & Alta \\
+AT-10 & Backend & Definir modelos de variables energéticas. & Alta \\
+AT-11 & Backend & Preparar lógica de decisión simulada. & Alta \\
+AT-12 & Datos & Definir tablas de Supabase. & Alta \\
+AT-13 & Datos & Implementar persistencia de medidas. & Media \\
+AT-14 & Web & Crear la estructura base de React. & Alta \\
+AT-15 & Web & Diseñar componentes principales del dashboard. & Alta \\
+AT-16 & Web & Consumir datos de la API. & Media \\
+AT-17 & Android & Crear estructura inicial de la app Java. & Media \\
+AT-18 & Android & Diseñar vista inicial de consulta. & Media \\
+AT-19 & ESP32 & Definir formato de datos simulados. & Alta \\
+AT-20 & ESP32 & Integrar el intercambio con Backend. & Media \\
+AT-21 & Integración & Definir formatos de comunicación. & Media \\
+AT-22 & Pruebas & Definir escenarios energéticos simulados. & Alta \\
+AT-23 & Pruebas & Comprobar validación y coherencia de datos. & Media \\
+AT-24 & Seguridad & Evitar exposición de credenciales. & Alta \\
+AT-25 & Entrega & Revisar el estado del Sprint y preparar evidencias. & Alta \\
+\bottomrule
 \end{longtable}
 \normalsize
-\section{Relación con GitHub Project}
-El \src{https://github.com/rrrarrra9/AhorraTenergia/issues/10}{Issue \#10} acredita la revisión del Product Backlog y el equipo informó de 17 Issues de trabajo en el Project. Esta diferencia con los 25 elementos documentales se explica por niveles diferentes de desglose y planificación. \textbf{Queda recomendable completar una matriz AT--Issue} para evitar asumir correspondencias inexistentes.
-\section{Criterios de aceptación}
-Cada Issue debe disponer de un resultado verificable, responsable, prioridad y evidencia proporcional al tipo de tarea: commit, PR, documentación, captura, prueba o demostración. Las funcionalidades futuras no deben figurar como realizadas durante este sprint.
 
-\chapter{Metodología de trabajo y riesgos}
-\section{Organización}
-El equipo emplea una dinámica incremental: registrar necesidad, priorizar, asignar responsable, desarrollar en una rama, probar, revisar, fusionar y actualizar evidencias. La comunicación y las decisiones relevantes se documentan en GitHub y en las actas.
+\section{Metodología de trabajo}
+
+El equipo trabaja de forma incremental. Cada Sprint selecciona un conjunto limitado de tareas del Product Backlog, define un resultado demostrable y registra las evidencias en GitHub.
+
+La secuencia habitual es:
+
+\begin{center}
+Issue → rama → desarrollo → pruebas → Pull Request → revisión → merge → cierre
+\end{center}
+
 \section{Riesgos identificados}
-\begin{tabularx}{\linewidth}{@{}p{3cm}X X@{}}\toprule
-\textbf{Riesgo} & \textbf{Impacto} & \textbf{Mitigación}\tabularnewline\midrule
-Integración tecnológica & Fallos al conectar componentes & Definir contratos de API y formatos de datos.\tabularnewline
-Alcance excesivo & MVP difícil de completar & Priorizar simulación y funciones imprescindibles.\tabularnewline
-Servicios externos & Bloqueos por terceros & Emplear datos de prueba y alternativas.\tabularnewline
-Conflictos Git & Integraciones defectuosas & Ramas por tarea, PR y revisiones.\tabularnewline
-Credenciales expuestas & Problemas de seguridad & Variables de entorno, secretos fuera de Git.\tabularnewline
-Falta de evidencias & Dificultades en evaluación & Mantener capturas, actas, commits e Issues.\tabularnewline
-Revisión omitida & Incumplimiento de DoD & Exigir aprobación previa o documentar la excepción.\tabularnewline\bottomrule\end{tabularx}
-\section{Decisiones técnicas todavía abiertas}
-Permanece por concretar el contrato API, el protocolo ESP32--backend, el modelo final de datos y políticas de acceso, la fuente de tarifas eléctricas, las reglas exactas de los modos simulados, el despliegue y los criterios cuantificables de prueba. Estos elementos pertenecen a la evolución del MVP, no se consideran implementados en el Sprint 1.
 
-\chapter{Sprint Review y Retrospectiva}
-\section{Situación del cierre a 19/10/2026}
-La Sprint Review y la Retrospectiva están previstas para el 20/10/2026. El equipo preparó plantillas en el repositorio mediante la \src{https://github.com/rrrarrra9/AhorraTenergia/pull/30}{PR \#30}. La preparación de las plantillas \textbf{no constituye evidencia de celebración} de las reuniones.
-\section{Sprint Review: estructura del acta}
-El acta disponible se encuentra en \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/actas/2026-10-20-sprint-review.md}{docs/actas/2026-10-20-sprint-review.md}. Una vez celebrada, debe incluir:
-\begin{enumerate}
-\item Fecha real, asistentes, duración y objetivo.
-\item Actividades previstas frente a actividades entregadas.
-\item Evidencias enlazadas: repositorio, tablero, commits, PR, memoria y demostración.
-\item Tareas no terminadas y causas; decisiones y próximos responsables.
-\item Acuerdos verificables y actualización del README/Project.
-\end{enumerate}
-\important{\textbf{Pendiente hasta después del 20/10:} trasladar a esta memoria las conclusiones reales del acta de Sprint Review. No se inventan resultados de la ceremonia.}
-\section{Retrospectiva: estructura del acta}
-El equipo ha preparado una plantilla en \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/retrospectivas}{docs/retrospectivas}. Después de la reunión se documentarán:
+\begin{tabularx}{\linewidth}{@{}p{3cm}X X@{}}
+\toprule
+\textbf{Riesgo} & \textbf{Impacto} & \textbf{Mitigación} \\
+\midrule
+Integración tecnológica & Incompatibilidades entre componentes & Utilizar un contrato común de datos. \\
+Alcance excesivo & No terminar el incremento & Dividir el trabajo y aplazar elementos no esenciales. \\
+Servicios externos & Dependencia de Supabase u otros servicios & Permitir almacenamiento temporal y datos de prueba. \\
+Conflictos Git & Integraciones incorrectas & Ramas específicas y Pull Requests. \\
+Revisión omitida & Incumplimiento de la DoD & Exigir \texttt{APPROVED} antes del merge. \\
+Credenciales expuestas & Riesgo de seguridad & Archivos locales ignorados y ejemplos sin secretos. \\
+Falta de evidencias & Dificultad para demostrar el trabajo & Registrar pruebas, Issues, PR y documentación durante el Sprint. \\
+\bottomrule
+\end{tabularx}
+
+% =========================================================
+% CAPÍTULO 9
+% =========================================================
+
+\chapter{Seguridad y decisiones técnicas}
+
+\section{Principios de seguridad aplicados}
+
+Durante el desarrollo se mantiene la regla de no versionar:
+
 \begin{itemize}
-\item Qué funcionó bien y por qué.
-\item Qué dificultades surgieron, incluida la revisión previa de las PR.
-\item Qué acciones concretas se aprueban para el Sprint 2, con responsables.
-\item Cómo y cuándo se comprobará cada mejora.
+\item contraseñas;
+\item tokens;
+\item API keys;
+\item cadenas de conexión privadas;
+\item datos personales reales;
+\item archivos de configuración local que contengan secretos.
 \end{itemize}
-\important{\textbf{Pendiente hasta después del 20/10:} registrar la retrospectiva real y sustituir cualquier hipótesis de mejora por acuerdos adoptados.}
-\section{Posibles temas para la reunión, sin presentar como acuerdos}
-Revisar el tablero al inicio de cada sesión, mejorar la puntualidad de las revisiones, concretar formatos de datos con ESP32, mantener demostraciones pequeñas y registrar bloqueos con responsables. Son \emph{propuestas a debatir}, no decisiones aprobadas.
 
-\chapter{Entregables, evidencias y verificación final}
-\section{Matriz de entregables}
+Cuando es necesario documentar variables de entorno se utilizan archivos de ejemplo sin credenciales, como \texttt{.env.example}.
+
+\section{Separación de responsabilidades}
+
+La arquitectura establece que React y ESP32 no deben acceder directamente a Supabase. El Backend ASP.NET Core actúa como mediador central.
+
+Esto permite concentrar en la API las validaciones, el enriquecimiento de datos y, en futuras iteraciones, el acceso a persistencia y las reglas de negocio.
+
+\section{Limitaciones deliberadas del prototipo}
+
+El sistema actual:
+
+\begin{itemize}
+\item no controla relés ni elementos eléctricos reales;
+\item no conmuta físicamente entre red, solar y batería;
+\item no utiliza todavía precios eléctricos reales;
+\item no implementa autenticación;
+\item no implementa todavía la aplicación Android;
+\item no persiste todavía en Supabase;
+\item trabaja con una vivienda y un dispositivo de prueba.
+\end{itemize}
+
+Estas limitaciones forman parte de la estrategia de desarrollo por incrementos.
+
+% =========================================================
+% CAPÍTULO 10
+% =========================================================
+
+\chapter{Entregables y evidencias}
+
+\section{Matriz de entregables principales}
+
 \small
-\begin{longtable}{@{}p{4.35cm}p{4.8cm}p{2.4cm}@{}}\toprule
-\textbf{Entregable} & \textbf{Localización principal} & \textbf{Situación}\tabularnewline\midrule\endhead
-Repositorio y README & \src{https://github.com/rrrarrra9/AhorraTenergia}{Repositorio GitHub} & Existente; actualizar al cierre\tabularnewline
-Tablero Kanban & \src{https://github.com/users/rrrarrra9/projects/1}{GitHub Project} & Configurado\tabularnewline
-Backlog (mín. 15) & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/10}{Issue \#10} & Cerrado\tabularnewline
-Roles y Definition of Done & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/roles-y-definition-of-done.md}{Documento de roles} & Documentado\tabularnewline
-Diseño inicial & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/design/dashboard-inicial.png}{design/dashboard-inicial.png} & Entregado\tabularnewline
-Documentación del diseño & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/design/README.md}{design/README.md} & Entregada\tabularnewline
-Arquitectura & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/11}{Issue \#11} & Cerrado\tabularnewline
-Memoria LaTeX y PDF & \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/memoria}{docs/memoria} & Compilación acreditada\tabularnewline
-Acta Planning & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/5}{Issue \#5} & Cerrado\tabularnewline
-Commits y PR & \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12}{Issue \#12} & Evidencias registradas\tabularnewline
-Sprint Review & \src{https://github.com/rrrarrra9/AhorraTenergia/blob/main/docs/actas/2026-10-20-sprint-review.md}{Plantilla de acta} & Pendiente reunión\tabularnewline
-Retrospectiva & \src{https://github.com/rrrarrra9/AhorraTenergia/tree/main/docs/retrospectivas}{Plantilla} & Pendiente reunión\tabularnewline
-Acceso del profesorado & Configuración de colaboradores / acceso público & Verificación individual pendiente\tabularnewline
-Milestone Sprint 2 & GitHub Milestones & Evidencia pendiente\tabularnewline\bottomrule
+\begin{longtable}{@{}p{3.8cm}p{5.5cm}p{2.3cm}@{}}
+\toprule
+\textbf{Entregable} & \textbf{Localización / referencia} & \textbf{Estado} \\
+\midrule
+\endhead
+Repositorio & \src{https://github.com/rrrarrra9/AhorraTenergia}{GitHub AhorraTenergia} & Operativo \\
+Memoria LaTeX & \texttt{docs/memoria/} & Actualizada \\
+Sprint Review 1 & \texttt{docs/actas/} & Realizada \\
+Retrospectiva 1 & \texttt{docs/retrospectivas/} & Realizada \\
+Contrato Sprint 2 & \texttt{docs/sprint2/} & Versionado \\
+Backend ASP.NET Core & \texttt{src/backend/} & Implementado \\
+ESP32 & \texttt{src/esp32/} & Implementado \\
+Dashboard React & \texttt{src/web/} & Implementado \\
+Persistencia Supabase & Issue \#15 & Pendiente \\
+Timestamp en dashboard & Issue \#43 & Pendiente \\
+\bottomrule
 \end{longtable}
 \normalsize
-\section{Evidencia de compilación de LaTeX}
-Hebert documentó la compilación mediante Overleaf: \textbf{0 errores}, 2 advertencias de fuentes y 4 mensajes informativos, con PDF generado. Se identificó \texttt{docs/memoria/main.tex} como versión de repositorio y se enlazó el PDF de la memoria. \src{https://github.com/rrrarrra9/AhorraTenergia/issues/12\#issuecomment-6238470647}{Evidencia y captura del registro}. La nueva versión de este documento también se proporciona en \LaTeX{} editable y PDF compilado.
-\section{Checklist de cierre alineado con el profesor}
-\begin{longtable}{@{}p{8.8cm}p{3.1cm}@{}}\toprule
-\textbf{Comprobación} & \textbf{Situación al 19/10}\tabularnewline\midrule\endhead
-Project refleja el estado real & Validación operativa; revisar al cierre\tabularnewline
-Cada integrante tiene actividad propia visible & Evidencias de commits documentadas\tabularnewline
-PR relevantes revisadas o justificadas & PR \#30 aprobada; excepciones identificadas\tabularnewline
-Capítulo 1 LaTeX escrito y compila & Documentado; PDF disponible\tabularnewline
-Planning y seguimiento semanal & Planning cerrado; seguimiento a acreditar en actas\tabularnewline
-Sprint Review documentada con resultados reales & Pendiente 20/10\tabularnewline
-Retrospectiva documentada con acuerdos reales & Pendiente 20/10\tabularnewline
-Backlog, README, roles y DoD & Documentados; README actualizar al cierre\tabularnewline
-Todos los entregables enlazados en el repositorio & Verificar enlaces definitivos\tabularnewline
-Milestones 1 y 2 con fechas & Sprint 1 verificado; Sprint 2 pendiente prueba\tabularnewline
-Profesorado añadido con acceso requerido & Pendiente de comprobación\tabularnewline\bottomrule\end{longtable}
-\section{Tareas necesarias antes de la entrega definitiva}
-\begin{enumerate}
-\item Celebrar la Review y Retrospectiva del 20/10 y rellenar las actas con resultados reales.
-\item Completar y cerrar el Issue \#12 cuando estén publicadas y verificadas ambas actas.
-\item Confirmar y acreditar el acceso requerido del profesorado y las fechas del milestone Sprint 2.
-\item Dejar constancia escrita del seguimiento semanal y de las decisiones adoptadas.
-\item Actualizar el README con el estado final y confirmar el Kanban/Project.
-\item Si se requiere trazabilidad exhaustiva, elaborar el mapeo entre los 25 códigos AT y los Issues efectivos.
-\end{enumerate}
-\section{Fuentes de referencia}
-\begin{itemize}
-\item Guía docente: \emph{Sprint 01 -- Arranque y planificación inicial}, 06/10/2026--20/10/2026.
-\item Documento de trabajo \emph{AhorraTenergia -- Sprint 01 -- Memoria de planificación, arquitectura y organización del proyecto} (19 páginas).
-\item Repositorio y evidencias: \url{https://github.com/rrrarrra9/AhorraTenergia}.
-\end{itemize}
-\chapter*{Conclusión}\addcontentsline{toc}{chapter}{Conclusión}
-Durante el Sprint 1, AhorraTenergia ha establecido una base organizativa y técnica: definición del problema y usuario, propuesta de arquitectura, backlog, roles, tablero y memoria inicial. La documentación de GitHub permite demostrar contribuciones individuales, diseño, seguimiento y decisiones del equipo. A fecha de corte, ocho de nueve Issues del milestone están cerrados; el cierre documental de la Review y la Retrospectiva todavía depende de las reuniones del 20 de octubre.
 
-La evolución del proyecto deberá transformar esta planificación en incrementos funcionales, comenzando por el contrato de datos, la API, la persistencia y la simulación con ESP32. Las decisiones y pruebas se incorporarán a los próximos sprints mediante los mecanismos de seguimiento y revisión acordados.
+\section{Trazabilidad Sprint 2}
+
+Los principales Issues y Pull Requests del Sprint 2 permiten relacionar planificación, implementación y evidencias:
+
+\begin{itemize}
+\item Issue \#38 y PR \#39: contrato común de datos;
+\item Issue \#13 y PR \#40: Backend ASP.NET Core;
+\item Issue \#18 y PR \#41: ESP32 e integración HTTP;
+\item Issue \#14 y PR \#42: dashboard React;
+\item Issue \#34: planificación y cierre del Sprint 2;
+\item Issue \#15: persistencia Supabase trasladada;
+\item Issue \#43: visualización de timestamp trasladada.
+\end{itemize}
+
+\section{Criterio de evidencia}
+
+La memoria distingue entre lo planificado y lo realmente comprobado. Por esta razón, Supabase aparece como diseño previsto y trabajo pendiente, mientras que el flujo ESP32--Backend--React se presenta como integración demostrada.
+
+% =========================================================
+% CONCLUSIÓN
+% =========================================================
+
+\chapter*{Conclusión}
+\addcontentsline{toc}{chapter}{Conclusión}
+
+El Sprint 1 permitió establecer la organización, documentación y arquitectura inicial de AhorraTenergia. Posteriormente, la Sprint Review y la Retrospectiva permitieron cerrar formalmente esa fase y detectar mejoras en el procedimiento de revisión y en el registro de evidencias.
+
+El Sprint 2 transformó parte de esa planificación en un incremento funcional. El equipo definió un contrato común de datos, implementó una API ASP.NET Core, desarrolló la generación de telemetría con ESP32 y construyó un dashboard React conectado al Backend.
+
+El resultado demostrado es el flujo:
+
+\begin{center}
+\texttt{ESP32 → ASP.NET Core → React}
+\end{center}
+
+La persistencia mediante Supabase no se completó durante el Sprint 2 y se mantiene abierta en el Issue \#15. Del mismo modo, la visualización del timestamp en el dashboard se ha separado en el Issue \#43. Esta decisión mantiene la documentación alineada con el estado real del proyecto y evita presentar como terminadas funcionalidades pendientes.
+
+El siguiente incremento deberá centrarse principalmente en implementar la persistencia en Supabase, adaptar el Backend para almacenar y recuperar los datos desde PostgreSQL y completar los ajustes menores del dashboard. A partir de esta base podrán incorporarse progresivamente nuevas funcionalidades como autenticación, precios reales, reglas de gestión, múltiples viviendas y aplicación Android.
+
+\section*{Fuentes de referencia}
+
+\begin{itemize}
+\item Repositorio del proyecto: \url{https://github.com/rrrarrra9/AhorraTenergia}.
+\item Sprint Review 1: \texttt{docs/actas/}.
+\item Retrospectiva Sprint 1: \texttt{docs/retrospectivas/}.
+\item Contrato de datos Sprint 2: \texttt{docs/sprint2/}.
+\item Issues \#13, \#14, \#15, \#18, \#34, \#38 y \#43.
+\item Pull Requests \#39, \#40, \#41 y \#42.
+\end{itemize}
+
 \end{document}

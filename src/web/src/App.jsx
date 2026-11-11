@@ -315,19 +315,6 @@ function App() {
               {energy.systemMode}
             </p>
 
-            <p>
-              <strong>Última actualización: </strong>
-
-              {new Date(energy.timestamp).toLocaleString(
-                'es-ES',
-                {
-                  dateStyle: 'short',
-                  timeStyle: 'short',
-                  timeZone: 'Europe/Madrid'
-                }
-              )}
-            </p>
-
           </section>
 
         </>
